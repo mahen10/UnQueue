@@ -23,6 +23,9 @@ class Shop extends Model
         'service_charge_percent',
         'subscription_end_date',
         'subscription_override',
+        'xendit_public_key',
+        'xendit_secret_key',
+        'xendit_webhook_token',
     ];
 
     protected function casts(): array
