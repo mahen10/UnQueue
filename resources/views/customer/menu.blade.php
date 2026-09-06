@@ -1,5 +1,5 @@
 @extends('layouts.customer')
-@section('title', 'Menu ' . $shop->name)
+@section('title', 'Menu ' . ($shopName ?? ''))
 
 @section('content')
 <div x-data="itemModal()" x-init="init()">
@@ -43,8 +43,8 @@
                         <div class="flex flex-col items-center group cursor-pointer" x-data="menuItem({{ $item->id }})" @click="openModal">
                             {{-- Image Card --}}
                             <div class="w-full aspect-square bg-gray-50/80 rounded-[28px] p-5 flex items-center justify-center relative mb-3 transition-colors group-hover:bg-gray-100">
-                                @if($item->image_url)
-                                    <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="object-contain w-full h-full drop-shadow-xl group-hover:scale-105 transition-transform duration-300">
+                                @if($item->photo)
+                                    <img src="{{ asset('storage/' . $item->photo) }}" alt="{{ $item->name }}" class="object-contain w-full h-full drop-shadow-xl group-hover:scale-105 transition-transform duration-300">
                                 @else
                                     <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
                                         <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -98,8 +98,8 @@
                 
                 {{-- Image --}}
                 <div class="w-full aspect-square bg-gray-50 rounded-[32px] p-8 flex items-center justify-center mb-6 mt-2 relative">
-                    <template x-if="item && item.image_url">
-                        <img :src="item.image_url" :alt="item.name" class="object-contain w-full h-full drop-shadow-2xl">
+                    <template x-if="item && item.photo">
+                        <img :src="item.photo" :alt="item.name" class="object-contain w-full h-full drop-shadow-2xl">
                     </template>
                 </div>
 
