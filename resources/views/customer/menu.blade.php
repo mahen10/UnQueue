@@ -34,12 +34,12 @@
     {{-- Menu Grid Sections --}}
     <div class="px-5 mt-2 space-y-12">
         @foreach($categories as $category)
-            @if($category->items->count() > 0)
+            @if($category->menuItems->count() > 0)
             <div id="cat-{{ $category->id }}" class="scroll-mt-[150px]">
                 <h2 class="text-[22px] font-extrabold text-gray-900 tracking-tight mb-5">{{ $category->name }}</h2>
                 
                 <div class="grid grid-cols-2 gap-x-4 gap-y-8">
-                    @foreach($category->items as $item)
+                    @foreach($category->menuItems as $item)
                         <div class="flex flex-col items-center group cursor-pointer" x-data="menuItem({{ $item->id }})" @click="openModal">
                             {{-- Image Card --}}
                             <div class="w-full aspect-square bg-gray-50/80 rounded-[28px] p-5 flex items-center justify-center relative mb-3 transition-colors group-hover:bg-gray-100">
