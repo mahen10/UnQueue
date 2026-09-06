@@ -59,8 +59,7 @@ class StaffController extends Controller
             'joined_at' => now(),
         ]);
 
-        // Berikan role Spatie ke user
-        $user->assignRole($validated['role']);
+        // Berikan role (sudah ter-cover oleh field 'role' di ShopUser)
 
         return back()->with('success', "Staf {$user->name} berhasil ditambahkan sebagai {$validated['role']}.");
     }
@@ -79,10 +78,6 @@ class StaffController extends Controller
 
         // Hapus dari toko
         $shopUser->delete();
-
-        // Cabut role Spatie (hanya jika dia tidak punya toko lain dengan role yang sama, tapi demi simpel cabut saja)
-        // Jika sistem multi-tenant lebih kompleks, kita perlu ngecek shopUser lain.
-        $user->removeRole($role);
 
         return back()->with('success', "Staf {$user->name} berhasil dihapus dari restoran.");
     }

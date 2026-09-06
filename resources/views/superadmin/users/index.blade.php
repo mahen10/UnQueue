@@ -58,7 +58,11 @@
                             <div class="text-xs text-gray-500">{{ $user->email ?? '-' }}</div>
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-500">
-                            {{ $user->getRoleNames()->first() ?? 'Belum ada role' }}
+                            @if($user->activeShop())
+                                {{ ucfirst($user->activeShop()->pivot->role ?? 'Owner') }} - {{ $user->activeShop()->name }}
+                            @else
+                                Belum ada toko
+                            @endif
                         </td>
                         <td class="px-6 py-4">
                             @if($user->is_banned)
