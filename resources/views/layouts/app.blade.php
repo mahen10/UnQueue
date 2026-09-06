@@ -24,16 +24,21 @@
                     @if(Auth::check() && request()->attributes->get('shopUser') && request()->attributes->get('shopUser')->role === 'owner')
                         <div class="hidden sm:flex space-x-4 ml-6 text-sm font-medium">
                             <a href="{{ route('owner.dashboard') }}" class="{{ request()->routeIs('owner.dashboard') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Dashboard</a>
-                            <a href="{{ route('owner.categories.index') }}" class="{{ request()->routeIs('owner.categories.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Kategori</a>
-                            <a href="{{ route('owner.menu-items.index') }}" class="{{ request()->routeIs('owner.menu-items.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Menu</a>
-                            <a href="{{ route('owner.tables.index') }}" class="{{ request()->routeIs('owner.tables.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Meja & QR</a>
+                            <a href="{{ route('owner.reports.index') }}" class="{{ request()->routeIs('owner.reports.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Laporan</a>
+                            <a href="{{ route('owner.categories.index') }}" class="{{ request()->routeIs('owner.categories.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Menu</a>
+                            <a href="{{ route('owner.tables.index') }}" class="{{ request()->routeIs('owner.tables.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Meja</a>
+                            <a href="{{ route('owner.staff.index') }}" class="{{ request()->routeIs('owner.staff.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Karyawan</a>
+                            <a href="{{ route('owner.settings.edit') }}" class="{{ request()->routeIs('owner.settings.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Pengaturan</a>
                             <a href="{{ route('owner.billing.index') }}" class="{{ request()->routeIs('owner.billing.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Billing</a>
                         </div>
                     @endif
                 </div>
                 <div class="flex items-center gap-4">
                     @auth
-                        <span class="text-sm text-gray-500">{{ Auth::user()->name }}</span>
+                        <div class="flex flex-col items-end mr-4">
+                            <span class="text-sm text-gray-900 font-bold">{{ Auth::user()->name }}</span>
+                            <span class="text-xs text-gray-500 font-mono">ID: {{ Auth::user()->uq_id }}</span>
+                        </div>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="text-sm font-medium text-gray-600 hover:text-red-600 transition">Logout</button>
