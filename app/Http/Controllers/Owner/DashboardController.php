@@ -60,11 +60,29 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        // Chart Data: Last 7 Days
+        $chartDates = [];
+        $chartRevenue = [];
+        $chartOrders = [];
+
+        for ($i = 6; $i >= 0; $i--) {
+            $date = Carbon::today()->subDays($i);
+            $chartDates[] = $date->format('d M');
+
+            $dayData = Order::where('shop_id', $shop->id)
+                ->whereDate('created_at', $date)
+                ->whereNotIn('status', ['pending', 'cancelled']);
+
+            $chartRevenue[] = (clone $dayData)->sum('total');
+            $chartOrders[] = (clone $dayData)->count();
+        }
+
         return view('owner.dashboard', compact(
             'shop', 
             'todayRevenue', 'todayOrdersCount', 
             'monthlyRevenue', 'monthlyOrdersCount',
-            'topItems', 'recentOrders'
+            'topItems', 'recentOrders',
+            'chartDates', 'chartRevenue', 'chartOrders'
         ));
     }
 }
