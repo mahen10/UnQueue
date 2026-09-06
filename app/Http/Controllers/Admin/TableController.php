@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Owner;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Table;
@@ -14,12 +14,12 @@ class TableController extends Controller
     {
         $shop = $request->attributes->get('shop');
         $tables = Table::where('shop_id', $shop->id)->orderBy('number')->get();
-        return view(request()->attributes->get('shopUser')->role . '.tables.index', compact('tables', 'shop'));
+        return view('admin.tables.index', compact('tables', 'shop'));
     }
 
     public function create()
     {
-        return view('owner.tables.create');
+        return view('admin.tables.create');
     }
 
     public function store(Request $request)
@@ -36,12 +36,12 @@ class TableController extends Controller
             'number' => $request->number,
         ]);
 
-        return redirect()->route(request()->attributes->get('shopUser')->role . '.tables.index')->with('success', 'Meja berhasil ditambahkan.');
+        return redirect()->route('admin.tables.index')->with('success', 'Meja berhasil ditambahkan.');
     }
 
     public function edit(Table $table)
     {
-        return view('owner.tables.edit', compact('table'));
+        return view('admin.tables.edit', compact('table'));
     }
 
     public function update(Request $request, Table $table)
@@ -56,13 +56,13 @@ class TableController extends Controller
             'number' => $request->number,
         ]);
 
-        return redirect()->route(request()->attributes->get('shopUser')->role . '.tables.index')->with('success', 'Meja berhasil diperbarui.');
+        return redirect()->route('admin.tables.index')->with('success', 'Meja berhasil diperbarui.');
     }
 
     public function destroy(Table $table)
     {
         $table->delete();
-        return redirect()->route(request()->attributes->get('shopUser')->role . '.tables.index')->with('success', 'Meja berhasil dihapus.');
+        return redirect()->route('admin.tables.index')->with('success', 'Meja berhasil dihapus.');
     }
 
     public function downloadQr(Table $table)
@@ -70,7 +70,7 @@ class TableController extends Controller
         // Pastikan format base64 aman untuk view / PDF
         $qrCode = base64_encode(QrCode::format('svg')->size(300)->generate($table->qr_url));
         
-        $pdf = Pdf::loadView('owner.tables.qr_pdf', compact('table', 'qrCode'));
+        $pdf = Pdf::loadView('admin.tables.qr_pdf', compact('table', 'qrCode'));
         
         return $pdf->download("QR-Code-{$table->name}.pdf");
     }
@@ -85,7 +85,7 @@ class TableController extends Controller
             $qrs[$table->id] = base64_encode(QrCode::format('svg')->size(250)->generate($table->qr_url));
         }
 
-        $pdf = Pdf::loadView('owner.tables.qr_all_pdf', compact('tables', 'qrs', 'shop'));
+        $pdf = Pdf::loadView('admin.tables.qr_all_pdf', compact('tables', 'qrs', 'shop'));
         
         return $pdf->download("All-QR-Codes-{$shop->slug}.pdf");
     }

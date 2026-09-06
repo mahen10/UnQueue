@@ -26,7 +26,7 @@
     <aside class="w-64 bg-white border-r border-gray-100 flex flex-col h-full flex-shrink-0 relative z-20 shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
         <!-- Logo -->
         <div class="h-20 flex items-center px-8">
-            <a href="{{ route('owner.dashboard') }}" class="text-xl font-bold text-gray-900 flex items-center gap-3 tracking-tight">
+            <a href="{{ route('admin.dashboard') }}" class="text-xl font-bold text-gray-900 flex items-center gap-3 tracking-tight">
                 <div class="relative w-6 h-6">
                     <!-- Colorful abstract logo similar to reference -->
                     <div class="absolute top-0 left-0 w-2.5 h-2.5 rounded-full bg-blue-500"></div>
@@ -40,49 +40,27 @@
 
         <!-- Navigation Links -->
         <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-            <a href="{{ route('owner.dashboard') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('owner.dashboard') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                 Analytics
             </a>
 
-            <a href="{{ route('owner.menu-items.index') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('owner.menu-items.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.menu-items.index') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('admin.menu-items.*') ? 'active' : '' }}">
                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                 Products
             </a>
 
-            <a href="{{ route('owner.categories.index') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('owner.categories.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.categories.index') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 Categories
             </a>
 
-            <a href="{{ route('owner.tables.index') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('owner.tables.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.tables.index') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('admin.tables.*') ? 'active' : '' }}">
                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"></path></svg>
                 Tables
             </a>
 
-            <a href="{{ route('owner.staff.index') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('owner.staff.*') ? 'active' : '' }}">
-                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                Staff
-            </a>
-
-            <a href="{{ route('owner.reports.index') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('owner.reports.*') ? 'active' : '' }}">
-                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                Reports
-            </a>
-
-            <a href="{{ route('owner.billing.index') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('owner.billing.*') ? 'active' : '' }}">
-                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-                Billing
-            </a>
-
-            <div class="pt-6 pb-2 px-4">
-                <div class="h-px w-full bg-gray-100"></div>
-            </div>
-
-            <a href="{{ route('owner.settings.edit') }}" class="sidebar-link flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 {{ request()->routeIs('owner.settings.*') ? 'active' : '' }}">
-                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                Settings
-            </a>
+            <!-- Reports will be added here later when Admin Reports are implemented -->
 
             <form method="POST" action="{{ route('logout') }}" class="w-full px-2">
                 @csrf

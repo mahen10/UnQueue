@@ -2,9 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Owner\DashboardController;
-use App\Http\Controllers\Owner\MenuCategoryController;
-use App\Http\Controllers\Owner\MenuItemController;
-use App\Http\Controllers\Owner\TableController;
 use App\Http\Controllers\Owner\StaffController;
 use App\Http\Controllers\Owner\ReportController;
 use App\Http\Controllers\Owner\SettingController;
@@ -33,23 +30,6 @@ Route::prefix('owner')
         // Billing & Langganan
         Route::get('billing', [BillingController::class, 'index'])->name('billing.index');
         Route::post('billing/subscribe', [BillingController::class, 'subscribe'])->name('billing.subscribe');
-    });
-
-// Group 2: Shared (Owner & Admin)
-Route::prefix('owner')
-    ->name('owner.')
-    ->middleware(['auth', 'role:owner,admin', 'subscription'])
-    ->group(function () {
-        // Menu
-        Route::resource('categories', MenuCategoryController::class);
-        Route::resource('menu-items', MenuItemController::class);
-        Route::patch('menu-items/{menuItem}/toggle-stock', [MenuItemController::class, 'toggleStock'])->name('menu-items.toggle-stock');
-
-        // Meja & QR Code
-        Route::resource('tables', TableController::class);
-        Route::get('tables/{table}/qr', [TableController::class, 'downloadQr'])->name('tables.qr');
-        Route::post('tables/{table}/regenerate-token', [TableController::class, 'regenerateToken'])->name('tables.regenerate-token');
-        Route::get('tables/export-pdf', [TableController::class, 'exportAllPdf'])->name('tables.export-pdf');
     });
 
 // Billing tetap bisa diakses walau langganan expired (tanpa middleware subscription)

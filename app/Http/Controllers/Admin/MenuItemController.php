@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Owner;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MenuItem;
@@ -21,14 +21,14 @@ class MenuItemController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        return view('owner.menu_items.index', compact('categories'));
+        return view('admin.menu_items.index', compact('categories'));
     }
 
     public function create(Request $request)
     {
         $shop = $request->attributes->get('shop');
         $categories = Category::where('shop_id', $shop->id)->orderBy('sort_order')->get();
-        return view('owner.menu_items.create', compact('categories'));
+        return view('admin.menu_items.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -62,7 +62,7 @@ class MenuItemController extends Controller
 
         $this->syncModifiers($menuItem, $request->modifiers);
 
-        return redirect()->route(request()->attributes->get('shopUser')->role . '.menu-items.index')->with('success', 'Menu berhasil ditambahkan.');
+        return redirect()->route('admin.menu-items.index')->with('success', 'Menu berhasil ditambahkan.');
     }
 
     public function edit(MenuItem $menuItem)
@@ -70,7 +70,7 @@ class MenuItemController extends Controller
         $shop = request()->attributes->get('shop');
         $categories = Category::where('shop_id', $shop->id)->orderBy('sort_order')->get();
         $menuItem->load('modifiers');
-        return view('owner.menu_items.edit', compact('menuItem', 'categories'));
+        return view('admin.menu_items.edit', compact('menuItem', 'categories'));
     }
 
     public function update(Request $request, MenuItem $menuItem)
@@ -103,7 +103,7 @@ class MenuItemController extends Controller
 
         $this->syncModifiers($menuItem, $request->modifiers);
 
-        return redirect()->route(request()->attributes->get('shopUser')->role . '.menu-items.index')->with('success', 'Menu berhasil diperbarui.');
+        return redirect()->route('admin.menu-items.index')->with('success', 'Menu berhasil diperbarui.');
     }
 
     public function destroy(MenuItem $menuItem)
@@ -112,7 +112,7 @@ class MenuItemController extends Controller
             Storage::disk('public')->delete($menuItem->photo);
         }
         $menuItem->delete();
-        return redirect()->route(request()->attributes->get('shopUser')->role . '.menu-items.index')->with('success', 'Menu berhasil dihapus.');
+        return redirect()->route('admin.menu-items.index')->with('success', 'Menu berhasil dihapus.');
     }
 
     public function toggleStock(MenuItem $menuItem)

@@ -1,4 +1,4 @@
-@extends('layouts.owner')
+@extends('layouts.admin')
 @section('title', 'Menu Item')
 
 @section('content')
@@ -9,8 +9,8 @@
             <p class="mt-1 text-sm text-gray-500">Kelola semua hidangan dan minuman restoran Anda.</p>
         </div>
         <div class="flex gap-3">
-            <a href="{{ route('owner.categories.index') }}" class="bg-white text-gray-700 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-50 border border-gray-200 transition shadow-sm">Atur Kategori</a>
-            <a href="{{ route('owner.menu-items.create') }}" class="bg-orange-500 text-white px-5 py-2 rounded-xl text-sm font-bold hover:bg-orange-600 transition hover:-translate-y-0.5 shadow-md hover:shadow-lg flex items-center gap-2">
+            <a href="{{ route('admin.categories.index') }}" class="bg-white text-gray-700 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-50 border border-gray-200 transition shadow-sm">Atur Kategori</a>
+            <a href="{{ route('admin.menu-items.create') }}" class="bg-orange-500 text-white px-5 py-2 rounded-xl text-sm font-bold hover:bg-orange-600 transition hover:-translate-y-0.5 shadow-md hover:shadow-lg flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
                 Tambah Menu
             </a>
@@ -43,7 +43,7 @@
                                 </div>
                             @endif
                             <div class="absolute top-3 right-3">
-                                <form action="{{ route('owner.menu-items.toggle-stock', $item) }}" method="POST">
+                                <form action="{{ route('admin.menu-items.toggle-stock', $item) }}" method="POST">
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit" class="text-xs font-bold px-3 py-1 rounded-full shadow-sm backdrop-blur-sm transition-colors
@@ -76,10 +76,10 @@
                         <div class="px-5 py-4 bg-gray-50/80 border-t border-gray-100 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span class="text-xs text-gray-400 font-medium">Aksi Cepat</span>
                             <div class="flex items-center gap-2">
-                                <a href="{{ route('owner.menu-items.edit', $item) }}" class="p-2 bg-white rounded-lg text-gray-500 hover:text-blue-600 shadow-sm hover:shadow transition border border-gray-200">
+                                <a href="{{ route('admin.menu-items.edit', $item) }}" class="p-2 bg-white rounded-lg text-gray-500 hover:text-blue-600 shadow-sm hover:shadow transition border border-gray-200">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                                 </a>
-                                <form action="{{ route('owner.menu-items.destroy', $item) }}" method="POST" onsubmit="return confirm('Yakin hapus menu ini?');">
+                                <form action="{{ route('admin.menu-items.destroy', $item) }}" method="POST" onsubmit="return confirm('Yakin hapus menu ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="p-2 bg-white rounded-lg text-gray-500 hover:text-red-600 shadow-sm hover:shadow transition border border-gray-200">
@@ -95,7 +95,7 @@
             @if($category->menuItems->isEmpty())
                 <div class="bg-white rounded-xl border border-dashed border-gray-300 p-8 text-center text-sm text-gray-500 mb-4">
                     <p class="mb-2">Belum ada menu di kategori ini.</p>
-                    <a href="{{ route('owner.menu-items.create', ['category_id' => $category->id]) }}" class="text-orange-600 font-bold hover:underline">+ Tambah Menu Pertama</a>
+                    <a href="{{ route('admin.menu-items.create', ['category_id' => $category->id]) }}" class="text-orange-600 font-bold hover:underline">+ Tambah Menu Pertama</a>
                 </div>
             @endif
         </div>
@@ -106,7 +106,7 @@
             </div>
             <h2 class="text-xl font-bold text-gray-900 mb-2">Restoran Anda masih kosong!</h2>
             <p class="text-gray-500 mb-6 text-sm">Mari mulai dengan membuat kategori menu terlebih dahulu, seperti "Makanan Utama" atau "Minuman".</p>
-            <a href="{{ route('owner.categories.create') }}" class="inline-flex items-center gap-2 bg-orange-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-orange-600 transition hover:-translate-y-0.5 shadow-md">
+            <a href="{{ route('admin.categories.create') }}" class="inline-flex items-center gap-2 bg-orange-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-orange-600 transition hover:-translate-y-0.5 shadow-md">
                 Buat Kategori Pertama
             </a>
         </div>

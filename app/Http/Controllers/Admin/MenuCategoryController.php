@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Owner;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -12,12 +12,12 @@ class MenuCategoryController extends Controller
     {
         $shop = $request->attributes->get('shop');
         $categories = Category::where('shop_id', $shop->id)->orderBy('sort_order')->get();
-        return view(request()->attributes->get('shopUser')->role . '.categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function create()
     {
-        return view('owner.categories.create');
+        return view('admin.categories.create');
     }
 
     public function store(Request $request)
@@ -42,12 +42,12 @@ class MenuCategoryController extends Controller
             'is_active' => $request->has('is_active'),
         ]);
 
-        return redirect()->route(request()->attributes->get('shopUser')->role . '.categories.index')->with('success', 'Kategori berhasil ditambahkan.');
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     public function edit(Category $category)
     {
-        return view('owner.categories.edit', compact('category'));
+        return view('admin.categories.edit', compact('category'));
     }
 
     public function update(Request $request, Category $category)
@@ -63,12 +63,12 @@ class MenuCategoryController extends Controller
             'is_active' => $request->has('is_active'),
         ]);
 
-        return redirect()->route(request()->attributes->get('shopUser')->role . '.categories.index')->with('success', 'Kategori berhasil diperbarui.');
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil diperbarui.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route(request()->attributes->get('shopUser')->role . '.categories.index')->with('success', 'Kategori berhasil dihapus.');
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil dihapus.');
     }
 }

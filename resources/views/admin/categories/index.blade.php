@@ -1,11 +1,11 @@
-@extends('layouts.owner')
+@extends('layouts.admin')
 @section('title', 'Kategori Menu')
 
 @section('content')
 <div class="py-6 max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-900">Kategori Menu</h1>
-        <a href="{{ route('owner.categories.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700">Tambah Kategori</a>
+        <a href="{{ route('admin.categories.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700">Tambah Kategori</a>
     </div>
 
     @if(session('success'))
@@ -37,13 +37,13 @@
                         @endif
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="{{ route('owner.categories.edit', $category) }}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
-                        <form action="{{ route('owner.categories.destroy', $category) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin hapus kategori ini?');">
+                        <a href="{{ route('admin.categories.edit', $category) }}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin hapus kategori ini?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-red-600 hover:text-red-900 mr-3">Hapus</button>
                         </form>
-                        <a href="{{ route('owner.menu-items.create', ['category_id' => $category->id]) }}" class="text-green-600 hover:text-green-900 font-bold">+ Tambah Menu</a>
+                        <a href="{{ route('admin.menu-items.create', ['category_id' => $category->id]) }}" class="text-green-600 hover:text-green-900 font-bold">+ Tambah Menu</a>
                     </td>
                 </tr>
                 @empty
