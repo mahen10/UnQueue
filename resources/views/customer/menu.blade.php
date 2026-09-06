@@ -1,151 +1,133 @@
 @extends('layouts.customer')
-@section('title', 'Menu')
+@section('title', 'Menu ' . $shop->name)
 
 @section('content')
-{{-- Pesan sukses ditambah ke keranjang --}}
-<div x-data="{ toast: '', show: false }" @cart-added.window="toast = $event.detail.message; show = true; setTimeout(() => show = false, 2500)">
-    <div x-show="show" x-transition
-        class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white text-sm px-5 py-2.5 rounded-full shadow-lg whitespace-nowrap"
-        style="display:none">
-        ✅ <span x-text="toast"></span>
-    </div>
-</div>
-
-{{-- Kategori Quick Nav --}}
-<div class="bg-white px-4 py-3 flex gap-3 overflow-x-auto sticky top-16 z-40 shadow-sm scrollbar-hide">
-    @foreach($categories as $cat)
-        @if($cat->menuItems->count() > 0)
-        <a href="#cat-{{ $cat->id }}" class="flex-shrink-0 text-sm font-medium text-gray-600 hover:text-blue-600 bg-gray-100 px-3 py-1.5 rounded-full whitespace-nowrap">
-            {{ $cat->name }}
-        </a>
-        @endif
-    @endforeach
-</div>
-
-{{-- Daftar Menu Per Kategori --}}
-<div class="px-4 py-4 space-y-8">
-    @forelse($categories as $cat)
-        @if($cat->menuItems->count() > 0)
-        <div id="cat-{{ $cat->id }}">
-            <h2 class="text-lg font-bold text-gray-800 mb-4 border-b-2 border-blue-500 pb-2">{{ $cat->name }}</h2>
+<div x-data="itemModal()" x-init="init()">
+    
+    {{-- Category & Search Bar (Sticky) --}}
+    <div class="sticky top-[80px] bg-white/95 backdrop-blur-md z-30 pt-2 pb-4 px-5">
+        <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar">
+            {{-- Search Button --}}
+            <button class="flex-shrink-0 w-11 h-11 bg-gray-100 hover:bg-gray-200 transition rounded-full flex items-center justify-center text-gray-900">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </button>
             
-            <div class="space-y-3">
-                @foreach($cat->menuItems as $item)
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden flex gap-3 p-3 cursor-pointer"
-                     x-data="menuItem({{ $item->id }}, '{{ addslashes($item->name) }}', {{ $item->price }})"
-                     @click="openModal()">
-                    
-                    {{-- Foto --}}
-                    <div class="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden bg-gray-200">
-                        @if($item->photo)
-                            <img src="{{ asset('storage/' . $item->photo) }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center text-gray-400">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            </div>
-                        @endif
-                    </div>
-                    
-                    {{-- Info --}}
-                    <div class="flex-grow flex flex-col justify-between py-0.5">
-                        <div>
-                            <h3 class="font-semibold text-gray-900 text-sm leading-tight">{{ $item->name }}</h3>
-                            @if($item->labels)
-                            <div class="flex gap-1 mt-1 flex-wrap">
-                                @foreach($item->labels as $label)
-                                <span class="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded">{{ $label }}</span>
-                                @endforeach
-                            </div>
-                            @endif
-                            @if($item->description)
-                            <p class="text-xs text-gray-400 mt-1 line-clamp-2">{{ $item->description }}</p>
-                            @endif
-                        </div>
-                        <div class="flex justify-between items-center mt-2">
-                            <span class="font-bold text-blue-600 text-sm">Rp {{ number_format($item->price, 0, ',', '.') }}</span>
-                            <div class="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            {{-- Favorite Button --}}
+            <button class="flex-shrink-0 w-11 h-11 bg-gray-100 hover:bg-gray-200 transition rounded-full flex items-center justify-center text-red-500">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+            </button>
+            
+            {{-- Category Pills --}}
+            <div class="flex items-center gap-2 pl-1" x-data="{ active: 'cat-{{ $categories->first()?->id }}' }">
+                @foreach($categories as $category)
+                    <a href="#cat-{{ $category->id }}" 
+                       @click="active = 'cat-{{ $category->id }}'"
+                       :class="active === 'cat-{{ $category->id }}' ? 'bg-[#111] text-white' : 'bg-gray-100 text-gray-900'"
+                       class="flex-shrink-0 px-5 py-2.5 rounded-full text-[13px] font-bold transition">
+                        {{ $category->name }}
+                    </a>
                 @endforeach
             </div>
         </div>
-        @endif
-    @empty
-        <div class="py-16 text-center text-gray-400">
-            <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-            <p>Menu belum tersedia.</p>
-        </div>
-    @endforelse
-</div>
+    </div>
 
-{{-- ========================
-     MODAL DETAIL ITEM
-     ======================== --}}
-<div id="item-modal" class="fixed inset-0 z-50 hidden" x-data="itemModal()">
-    {{-- Backdrop --}}
-    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="close()"></div>
+    {{-- Menu Grid Sections --}}
+    <div class="px-5 mt-2 space-y-12">
+        @foreach($categories as $category)
+            @if($category->items->count() > 0)
+            <div id="cat-{{ $category->id }}" class="scroll-mt-[150px]">
+                <h2 class="text-[22px] font-extrabold text-gray-900 tracking-tight mb-5">{{ $category->name }}</h2>
+                
+                <div class="grid grid-cols-2 gap-x-4 gap-y-8">
+                    @foreach($category->items as $item)
+                        <div class="flex flex-col items-center group cursor-pointer" x-data="menuItem({{ $item->id }})" @click="openModal">
+                            {{-- Image Card --}}
+                            <div class="w-full aspect-square bg-gray-50/80 rounded-[28px] p-5 flex items-center justify-center relative mb-3 transition-colors group-hover:bg-gray-100">
+                                @if($item->image_url)
+                                    <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="object-contain w-full h-full drop-shadow-xl group-hover:scale-105 transition-transform duration-300">
+                                @else
+                                    <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    </div>
+                                @endif
+                            </div>
+                            
+                            {{-- Item Info --}}
+                            <h3 class="text-[14px] font-bold text-gray-900 text-center leading-tight mb-1">{{ $item->name }}</h3>
+                            <p class="text-[12px] font-medium text-gray-400 mb-3">{{ $item->description ? Str::limit($item->description, 20) : '1 porsi' }}</p>
+                            
+                            {{-- Price Button --}}
+                            <button class="bg-gray-100 text-gray-900 text-[13px] font-extrabold px-4 py-2 rounded-full flex items-center justify-center w-max group-hover:bg-gray-200 transition">
+                                + {{ number_format($item->price, 0, ',', '.') }}
+                            </button>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+        @endforeach
+    </div>
 
-    {{-- Sheet dari bawah --}}
-    <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl max-h-[90vh] overflow-y-auto"
-         id="modal-sheet"
-         x-show="open"
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="translate-y-full"
-         x-transition:enter-end="translate-y-0"
-         x-transition:leave="transition ease-in duration-200"
-         x-transition:leave-start="translate-y-0"
-         x-transition:leave-end="translate-y-full">
+    {{-- Item Detail Modal (Slide Up Drawer) --}}
+    <div id="item-modal" class="fixed inset-0 z-[60] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" x-show="open" x-transition.opacity>
+        <!-- Background overlay -->
+        <div class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity" @click="close()"></div>
 
-        {{-- Loading state --}}
-        <div x-show="loading" class="p-8 text-center text-gray-400">
-            <p class="animate-pulse">Memuat...</p>
-        </div>
-
-        {{-- Item loaded --}}
-        <div x-show="!loading && item">
-            {{-- Foto Item --}}
-            <div class="relative">
-                <template x-if="item && item.photo">
-                    <img :src="item.photo" :alt="item.name" class="w-full h-56 object-cover">
-                </template>
-                <template x-if="item && !item.photo">
-                    <div class="w-full h-40 bg-gray-100 flex items-center justify-center text-gray-400">
-                        <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    </div>
-                </template>
-                <button @click="close()" class="absolute top-3 right-3 bg-white/80 rounded-full p-1.5 shadow">
-                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
+        <!-- Modal panel -->
+        <div class="fixed inset-x-0 bottom-0 z-10 w-full transform transition-transform duration-300 max-h-[90vh] flex flex-col bg-white rounded-t-3xl shadow-2xl max-w-md mx-auto"
+             x-show="open"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="translate-y-full"
+             x-transition:enter-end="translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="translate-y-0"
+             x-transition:leave-end="translate-y-full">
+            
+            <!-- Handle indicator -->
+            <div class="w-full flex justify-center pt-3 pb-1" @click="close()">
+                <div class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
             </div>
 
-            <div class="p-4">
-                <h2 class="text-xl font-bold text-gray-900" x-text="item.name"></h2>
-                <p class="text-blue-600 font-bold text-lg mt-1" x-text="'Rp ' + totalPrice.toLocaleString('id-ID')"></p>
-                <p class="text-sm text-gray-500 mt-2" x-text="item.description"></p>
+            <!-- Loading State -->
+            <div x-show="loading" class="p-8 flex justify-center items-center min-h-[300px]">
+                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
+            </div>
+
+            <!-- Item Content -->
+            <div x-show="!loading && item" class="flex-1 overflow-y-auto px-6 pb-24 custom-scrollbar">
+                
+                {{-- Image --}}
+                <div class="w-full aspect-square bg-gray-50 rounded-[32px] p-8 flex items-center justify-center mb-6 mt-2 relative">
+                    <template x-if="item && item.image_url">
+                        <img :src="item.image_url" :alt="item.name" class="object-contain w-full h-full drop-shadow-2xl">
+                    </template>
+                </div>
+
+                {{-- Title & Price --}}
+                <h2 class="text-2xl font-extrabold text-gray-900 tracking-tight" x-text="item ? item.name : ''"></h2>
+                <p class="text-gray-500 font-medium text-sm mt-2" x-text="item ? item.description : ''"></p>
+                <p class="text-xl font-black text-gray-900 mt-4" x-text="'Rp ' + (item ? item.price.toLocaleString('id-ID') : 0)"></p>
 
                 {{-- Modifiers --}}
                 <template x-if="item && item.modifiers.length > 0">
-                    <div class="mt-4 space-y-4">
+                    <div class="mt-8 space-y-6">
                         <template x-for="modifier in item.modifiers" :key="modifier.id">
                             <div>
-                                <h4 class="font-semibold text-sm text-gray-800 mb-2">
+                                <h4 class="font-bold text-[15px] text-gray-900 mb-3 flex items-center justify-between">
                                     <span x-text="modifier.name"></span>
-                                    <span x-show="modifier.is_required" class="ml-1 text-xs font-normal text-red-500">(Wajib)</span>
+                                    <span x-show="modifier.is_required" class="bg-gray-100 text-gray-600 text-[10px] uppercase tracking-wider px-2 py-1 rounded-full font-bold">Required</span>
                                 </h4>
-                                <div class="grid grid-cols-2 gap-2">
+                                <div class="space-y-2">
                                     <template x-for="(opt, i) in modifier.options" :key="i">
-                                        <label class="flex items-center gap-2 border rounded-lg px-3 py-2 cursor-pointer"
-                                               :class="isSelected(modifier.id, opt.label) ? 'border-blue-500 bg-blue-50' : 'border-gray-200'">
-                                            <input type="radio" :name="'mod_' + modifier.id" :value="opt.label"
-                                                   class="hidden"
-                                                   @change="selectModifier(modifier, opt)">
-                                            <div class="flex flex-col">
-                                                <span class="text-sm font-medium text-gray-900" x-text="opt.label"></span>
-                                                <span class="text-xs text-gray-500" x-text="opt.price > 0 ? '+Rp ' + Number(opt.price).toLocaleString('id-ID') : 'Gratis'"></span>
+                                        <label class="flex items-center justify-between border-2 rounded-2xl px-4 py-3 cursor-pointer transition-colors"
+                                               :class="isSelected(modifier.id, opt.label) ? 'border-gray-900 bg-gray-50' : 'border-gray-100 hover:border-gray-200'">
+                                            <div class="flex items-center gap-3">
+                                                <input type="radio" :name="'mod_' + modifier.id" :value="opt.label"
+                                                       class="w-5 h-5 text-gray-900 focus:ring-gray-900 border-gray-300"
+                                                       @change="selectModifier(modifier, opt)">
+                                                <span class="text-sm font-bold text-gray-900" x-text="opt.label"></span>
                                             </div>
+                                            <span class="text-sm font-medium text-gray-500" x-text="opt.price > 0 ? '+ ' + Number(opt.price).toLocaleString('id-ID') : ''"></span>
                                         </label>
                                     </template>
                                 </div>
@@ -154,34 +136,34 @@
                     </div>
                 </template>
 
-                {{-- Catatan --}}
-                <div class="mt-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Catatan (Opsional)</label>
-                    <input type="text" x-model="note" placeholder="Misal: tidak pedas, tanpa es..."
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                {{-- Notes --}}
+                <div class="mt-8">
+                    <label class="block text-[15px] font-bold text-gray-900 mb-3">Notes</label>
+                    <textarea x-model="note" rows="2" placeholder="Any special requests?"
+                           class="w-full bg-gray-50 border-0 rounded-2xl px-4 py-3 text-sm focus:ring-2 focus:ring-gray-900 transition resize-none"></textarea>
                 </div>
+            </div>
 
-                {{-- Qty & Tombol Tambah --}}
-                <div class="mt-5 flex items-center gap-4">
-                    <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
-                        <button @click="qty > 1 && qty--" class="px-4 py-3 text-gray-600 hover:bg-gray-100 font-bold text-lg">−</button>
-                        <span class="px-4 py-3 font-semibold text-lg min-w-[3rem] text-center" x-text="qty"></span>
-                        <button @click="qty++" class="px-4 py-3 text-gray-600 hover:bg-gray-100 font-bold text-lg">+</button>
-                    </div>
-                    <button @click="addToCart()" :disabled="adding"
-                            class="flex-grow bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 active:scale-95 transition disabled:opacity-60">
-                        <span x-show="!adding">Tambah ke Keranjang</span>
-                        <span x-show="adding">Menambahkan...</span>
-                    </button>
+            <!-- Sticky Bottom Add To Cart -->
+            <div x-show="!loading && item" class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-4 pb-8 flex items-center gap-4">
+                <div class="flex items-center bg-gray-100 rounded-full overflow-hidden h-14">
+                    <button @click="qty > 1 && qty--" class="w-12 h-full text-gray-600 hover:bg-gray-200 font-bold text-xl flex items-center justify-center transition">-</button>
+                    <span class="w-10 font-black text-lg text-center" x-text="qty"></span>
+                    <button @click="qty++" class="w-12 h-full text-gray-600 hover:bg-gray-200 font-bold text-xl flex items-center justify-center transition">+</button>
                 </div>
+                <button @click="addToCart()" :disabled="adding"
+                        class="flex-1 bg-[#111] text-white h-14 rounded-full font-bold text-[15px] shadow-lg hover:bg-black active:scale-95 transition-all disabled:opacity-70 flex justify-between items-center px-6">
+                    <span x-show="!adding">Add</span>
+                    <span x-show="adding">Adding...</span>
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-sm" x-text="totalPrice.toLocaleString('id-ID')"></span>
+                </button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// AlpineJS Component untuk tiap item di list menu
-function menuItem(itemId, itemName, itemPrice) {
+function menuItem(itemId) {
     return {
         id: itemId,
         openModal() {
@@ -192,7 +174,6 @@ function menuItem(itemId, itemName, itemPrice) {
     };
 }
 
-// AlpineJS Component untuk modal detail item
 function itemModal() {
     return {
         open: false,
@@ -243,11 +224,10 @@ function itemModal() {
             this.open = false;
             setTimeout(() => {
                 document.getElementById('item-modal').classList.add('hidden');
-            }, 200);
+            }, 300);
         },
         
         async addToCart() {
-            // Validasi modifier wajib
             for (const mod of this.item.modifiers) {
                 if (mod.is_required && !this.selectedModifiers[mod.id]) {
                     alert(`Pilih dulu: ${mod.name}`);
@@ -275,22 +255,16 @@ function itemModal() {
             this.adding = false;
             
             if (data.success) {
-                // Update badge keranjang di header
-                const badge = document.querySelector('[data-cart-badge]');
-                if (badge) badge.textContent = data.cart_count;
-                
-                // Reload halaman agar badge terlihat
                 this.close();
-                setTimeout(() => {
-                    window.dispatchEvent(new CustomEvent('cart-added', {
-                        detail: { message: data.message }
-                    }));
-                    // Refresh halaman setelah toast
-                    setTimeout(() => location.reload(), 1000);
-                }, 200);
+                setTimeout(() => location.reload(), 300);
             }
         }
     };
 }
 </script>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 0px; }
+    .custom-scrollbar { scrollbar-width: none; }
+</style>
 @endsection
