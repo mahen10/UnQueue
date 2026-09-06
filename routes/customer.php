@@ -25,6 +25,10 @@ Route::prefix('order')
         Route::post('/checkout', [CheckoutController::class, 'placeOrder'])->name('checkout.place');
         Route::get('/checkout/pending/{order}', [CheckoutController::class, 'pending'])->name('checkout.pending');
 
+        // Simulasi pembayaran (HANYA aktif saat APP_PAYMENT_MODE=dummy di .env)
+        Route::post('/checkout/simulate/{order}/success', [CheckoutController::class, 'simulateSuccess'])->name('checkout.simulate.success');
+        Route::post('/checkout/simulate/{order}/fail', [CheckoutController::class, 'simulateFail'])->name('checkout.simulate.fail');
+
         // Live Tracking
         Route::get('/track/{order}', [OrderTrackingController::class, 'index'])->name('track');
     });
