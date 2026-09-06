@@ -41,8 +41,9 @@
                         <form action="{{ route('owner.categories.destroy', $category) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin hapus kategori ini?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:text-red-900">Hapus</button>
+                            <button type="submit" class="text-red-600 hover:text-red-900 mr-3">Hapus</button>
                         </form>
+                        <a href="{{ route('owner.menu-items.create', ['category_id' => $category->id]) }}" class="text-green-600 hover:text-green-900 font-bold">+ Tambah Menu</a>
                     </td>
                 </tr>
                 @empty

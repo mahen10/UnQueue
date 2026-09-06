@@ -29,10 +29,16 @@ class MenuCategoryController extends Controller
             'is_active' => 'nullable|boolean',
         ]);
 
+        $sortOrder = $request->sort_order;
+        if (is_null($sortOrder)) {
+            $maxOrder = Category::where('shop_id', $shop->id)->max('sort_order');
+            $sortOrder = $maxOrder ? $maxOrder + 1 : 1;
+        }
+
         Category::create([
             'shop_id' => $shop->id,
             'name' => $request->name,
-            'sort_order' => $request->sort_order ?? 0,
+            'sort_order' => $sortOrder,
             'is_active' => $request->has('is_active'),
         ]);
 
