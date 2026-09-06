@@ -12,9 +12,9 @@
     <style type="text/tailwindcss">
         @theme {
             --font-sans: 'Plus Jakarta Sans', sans-serif;
-            --color-brand: #ea580c; /* Orange 600 */
-            --color-brand-light: #f97316; /* Orange 500 */
-            --color-surface: #fff8f4; /* Warm peach background */
+            --color-brand: #4f46e5; /* Orange 600 */
+            --color-brand-light: #6366f1; /* Orange 500 */
+            --color-surface: #f8fafc; /* Warm peach background */
         }
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
@@ -22,13 +22,16 @@
 <body class="bg-white text-gray-900 antialiased overflow-x-hidden">
 
     {{-- Navbar --}}
-    <nav class="fixed w-full z-50 transition-all duration-300 bg-surface/90 backdrop-blur-md border-b border-orange-100/50">
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-surface/90 backdrop-blur-md border-b border-indigo-100/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
-                <div class="flex items-center gap-2 cursor-pointer">
-                    <div class="bg-brand text-white w-10 h-10 flex items-center justify-center rounded-xl font-black text-xl shadow-lg shadow-orange-500/30">
-                        UQ
+                <div class="flex items-center gap-3 cursor-pointer">
+                    <div class="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center relative overflow-hidden flex-shrink-0">
+                        <div class="absolute top-1.5 left-1.5 w-3 h-3 bg-blue-500 rounded-full mix-blend-multiply opacity-80"></div>
+                        <div class="absolute top-1.5 right-1.5 w-3 h-3 bg-rose-500 rounded-full mix-blend-multiply opacity-80"></div>
+                        <div class="absolute bottom-1.5 left-1.5 w-3 h-3 bg-amber-500 rounded-full mix-blend-multiply opacity-80"></div>
+                        <div class="absolute bottom-1.5 right-1.5 w-3 h-3 bg-emerald-500 rounded-full mix-blend-multiply opacity-80"></div>
                     </div>
                     <span class="font-extrabold text-2xl tracking-tight text-gray-900">UnQueue</span>
                 </div>
@@ -44,7 +47,7 @@
                 <!-- Right Action -->
                 <div class="hidden md:flex items-center gap-4">
                     <a href="{{ route('login') }}" class="text-gray-700 font-bold hover:text-brand transition text-sm">Sign In</a>
-                    <a href="{{ route('register') }}" class="bg-brand hover:bg-orange-700 text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5 text-sm">
+                    <a href="{{ route('register') }}" class="bg-brand hover:bg-indigo-700 text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5 text-sm">
                         Daftar Gratis
                     </a>
                 </div>
@@ -62,16 +65,16 @@
     {{-- Hero Section --}}
     <div class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-surface">
         <!-- Decor blobs -->
-        <div class="absolute top-20 right-10 w-4 h-4 bg-yellow-400 rounded-full blur-[1px]"></div>
+        <div class="absolute top-20 right-10 w-4 h-4 bg-blue-400 rounded-full blur-[1px]"></div>
         <div class="absolute top-40 left-20 w-3 h-3 bg-brand rounded-full blur-[1px]"></div>
-        <div class="absolute bottom-20 right-1/4 w-5 h-5 bg-orange-300 rounded-full blur-[1px]"></div>
+        <div class="absolute bottom-20 right-1/4 w-5 h-5 bg-indigo-300 rounded-full blur-[1px]"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
                 
                 <!-- Left Content -->
                 <div class="max-w-2xl">
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-100/80 text-brand font-bold text-xs mb-6 border border-orange-200">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-100/80 text-brand font-bold text-xs mb-6 border border-indigo-200">
                         <span class="text-yellow-500">✦</span> Cepat • Praktis • Akurat
                     </div>
                     
@@ -86,7 +89,7 @@
                     </p>
                     
                     <div class="flex flex-wrap items-center gap-4 mb-10">
-                        <a href="{{ route('register') }}" class="bg-brand hover:bg-orange-700 text-white px-8 py-4 rounded-full font-bold shadow-xl shadow-orange-500/30 transition hover:-translate-y-1 flex items-center gap-2 text-lg">
+                        <a href="{{ route('register') }}" class="bg-brand hover:bg-indigo-700 text-white px-8 py-4 rounded-full font-bold shadow-xl shadow-indigo-500/30 transition hover:-translate-y-1 flex items-center gap-2 text-lg">
                             Mulai Sekarang
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </a>
@@ -131,7 +134,7 @@
 
                     <!-- Floating Badge 1: New Order -->
                     <div class="absolute top-12 -left-8 md:-left-12 bg-white p-3 rounded-2xl shadow-xl flex items-center gap-3 z-20 animate-[bounce_3s_ease-in-out_infinite]">
-                        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-brand">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-brand">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                         </div>
                         <div>
@@ -168,7 +171,7 @@
                 <!-- Feature 1 -->
                 <div class="flex flex-col items-center">
                     <div class="w-24 h-24 mb-6 relative">
-                        <div class="absolute inset-0 bg-orange-100 rounded-full scale-110"></div>
+                        <div class="absolute inset-0 bg-indigo-100 rounded-full scale-110"></div>
                         <img src="https://cdn-icons-png.flaticon.com/512/879/879796.png" class="w-full h-full object-contain relative z-10" alt="Fast">
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Pesanan Instan</h3>
@@ -179,7 +182,7 @@
                 <!-- Feature 2 -->
                 <div class="flex flex-col items-center">
                     <div class="w-24 h-24 mb-6 relative">
-                        <div class="absolute inset-0 bg-orange-100 rounded-full scale-110"></div>
+                        <div class="absolute inset-0 bg-indigo-100 rounded-full scale-110"></div>
                         <img src="https://cdn-icons-png.flaticon.com/512/3588/3588294.png" class="w-full h-full object-contain relative z-10" alt="Variety">
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Integrasi Dapur</h3>
@@ -190,7 +193,7 @@
                 <!-- Feature 3 -->
                 <div class="flex flex-col items-center">
                     <div class="w-24 h-24 mb-6 relative">
-                        <div class="absolute inset-0 bg-orange-100 rounded-full scale-110"></div>
+                        <div class="absolute inset-0 bg-indigo-100 rounded-full scale-110"></div>
                         <img src="https://cdn-icons-png.flaticon.com/512/2953/2953423.png" class="w-full h-full object-contain relative z-10" alt="Quality">
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Transaksi Aman</h3>
@@ -214,7 +217,7 @@
                     <button class="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-brand hover:border-brand transition shadow-sm">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                     </button>
-                    <button class="w-12 h-12 rounded-full bg-brand text-white flex items-center justify-center hover:bg-orange-700 transition shadow-md shadow-orange-500/30">
+                    <button class="w-12 h-12 rounded-full bg-brand text-white flex items-center justify-center hover:bg-indigo-700 transition shadow-md shadow-indigo-500/30">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </button>
                 </div>
@@ -223,7 +226,7 @@
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Sidebar Nav -->
                 <div class="lg:w-1/4 flex flex-row lg:flex-col gap-3 overflow-x-auto hide-scrollbar pb-4 lg:pb-0">
-                    <button class="bg-brand text-white font-bold py-4 px-6 rounded-2xl flex items-center gap-4 min-w-max shadow-md shadow-orange-500/20">
+                    <button class="bg-brand text-white font-bold py-4 px-6 rounded-2xl flex items-center gap-4 min-w-max shadow-md shadow-indigo-500/20">
                         <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">📱</div>
                         Menu Digital
                     </button>
@@ -256,7 +259,7 @@
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-white font-bold text-lg">Responsif</span>
-                                <button class="bg-brand hover:bg-orange-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition">Lihat</button>
+                                <button class="bg-brand hover:bg-indigo-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition">Lihat</button>
                             </div>
                         </div>
                     </div>
@@ -272,7 +275,7 @@
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-white font-bold text-lg">Detail</span>
-                                <button class="bg-brand hover:bg-orange-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition">Lihat</button>
+                                <button class="bg-brand hover:bg-indigo-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition">Lihat</button>
                             </div>
                         </div>
                     </div>
@@ -288,7 +291,7 @@
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-white font-bold text-lg">Checkout</span>
-                                <button class="bg-brand hover:bg-orange-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition">Lihat</button>
+                                <button class="bg-brand hover:bg-indigo-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition">Lihat</button>
                             </div>
                         </div>
                     </div>
@@ -300,9 +303,9 @@
     {{-- CTA App Section --}}
     <div class="py-20 bg-surface">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-orange-50 rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden">
+            <div class="bg-indigo-50 rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden">
                 <!-- Decor -->
-                <div class="absolute -right-20 -top-20 w-64 h-64 bg-orange-100 rounded-full blur-3xl opacity-50"></div>
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-100 rounded-full blur-3xl opacity-50"></div>
                 
                 <div class="max-w-xl relative z-10 text-center md:text-left">
                     <p class="text-brand font-bold tracking-widest text-sm uppercase mb-3">• MULAI DIGITALISASI •</p>
@@ -312,7 +315,7 @@
                     <p class="text-gray-600 mb-8 text-lg font-medium">
                         Daftar sekarang dan nikmati sistem manajemen restoran berbasis QR yang akan memudahkan staf dan memanjakan pelanggan Anda.
                     </p>
-                    <a href="{{ route('register') }}" class="inline-flex items-center gap-2 bg-brand hover:bg-orange-700 text-white px-8 py-4 rounded-full font-bold shadow-xl shadow-orange-500/30 transition hover:-translate-y-1 text-lg">
+                    <a href="{{ route('register') }}" class="inline-flex items-center gap-2 bg-brand hover:bg-indigo-700 text-white px-8 py-4 rounded-full font-bold shadow-xl shadow-indigo-500/30 transition hover:-translate-y-1 text-lg">
                         Buat Toko Gratis ➔
                     </a>
                 </div>
@@ -330,9 +333,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
                 <div class="col-span-2">
-                    <div class="flex items-center gap-2 mb-6">
-                        <div class="bg-brand text-white w-8 h-8 flex items-center justify-center rounded-lg font-black text-lg">UQ</div>
-                        <span class="font-extrabold text-xl text-gray-900">UnQueue</span>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center relative overflow-hidden flex-shrink-0">
+                            <div class="absolute top-1.5 left-1.5 w-3 h-3 bg-blue-500 rounded-full mix-blend-multiply opacity-80"></div>
+                            <div class="absolute top-1.5 right-1.5 w-3 h-3 bg-rose-500 rounded-full mix-blend-multiply opacity-80"></div>
+                            <div class="absolute bottom-1.5 left-1.5 w-3 h-3 bg-amber-500 rounded-full mix-blend-multiply opacity-80"></div>
+                            <div class="absolute bottom-1.5 right-1.5 w-3 h-3 bg-emerald-500 rounded-full mix-blend-multiply opacity-80"></div>
+                        </div>
+                        <span class="font-extrabold text-xl tracking-tight text-gray-900">UnQueue</span>
                     </div>
                     <p class="text-gray-500 font-medium max-w-sm mb-6">Sistem pemesanan QR terbaik untuk restoran modern. Cepat, mudah, dan terintegrasi.</p>
                     <div class="flex gap-4">

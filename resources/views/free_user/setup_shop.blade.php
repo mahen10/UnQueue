@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="text-center mb-8">
-    <div class="w-16 h-16 bg-orange-100 text-brand rounded-full flex items-center justify-center mx-auto mb-4">
+    <div class="w-16 h-16 bg-indigo-100 text-brand rounded-full flex items-center justify-center mx-auto mb-4">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
     </div>
     <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Setup Restoran</h1>
@@ -39,7 +39,7 @@
         @enderror
     </div>
 
-    <button type="submit" class="w-full flex items-center justify-center gap-2 bg-brand hover:bg-orange-600 text-white font-bold py-4 px-4 rounded-xl shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5 mt-6">
+    <button type="submit" class="w-full flex items-center justify-center gap-2 bg-brand hover:bg-indigo-600 text-white font-bold py-4 px-4 rounded-xl shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5 mt-6">
         Simpan & Lanjutkan
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
     </button>

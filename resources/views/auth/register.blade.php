@@ -44,7 +44,7 @@
             placeholder="Ketik ulang password">
     </div>
 
-    <button type="submit" class="w-full bg-brand hover:bg-orange-600 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5 mt-4">
+    <button type="submit" class="w-full bg-brand hover:bg-indigo-600 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5 mt-4">
         Daftar Sekarang
     </button>
 </form>

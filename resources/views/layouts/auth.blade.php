@@ -10,9 +10,9 @@
     <style type="text/tailwindcss">
         @theme {
             --font-sans: 'Plus Jakarta Sans', sans-serif;
-            --color-brand: #ea580c;
-            --color-brand-light: #f97316;
-            --color-surface: #fff8f4;
+            --color-brand: #4f46e5;
+            --color-brand-light: #6366f1;
+            --color-surface: #f8fafc;
         }
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
@@ -20,20 +20,25 @@
 <body class="bg-surface text-gray-900 antialiased min-h-screen flex flex-col md:flex-row">
 
     <!-- Left Side: Image/Branding (Hidden on mobile) -->
-    <div class="hidden md:flex md:w-1/2 bg-orange-100 relative overflow-hidden flex-col justify-between p-12">
+    <div class="hidden md:flex md:w-1/2 bg-indigo-100 relative overflow-hidden flex-col justify-between p-12">
         <div class="absolute inset-0">
             <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80" alt="Restaurant Background" class="w-full h-full object-cover opacity-80 mix-blend-overlay">
-            <div class="absolute inset-0 bg-gradient-to-t from-orange-900/90 via-orange-900/40 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-indigo-900/90 via-orange-900/40 to-transparent"></div>
         </div>
         
-        <div class="relative z-10 flex items-center gap-2">
-            <div class="bg-brand text-white w-10 h-10 flex items-center justify-center rounded-xl font-black text-xl shadow-lg">UQ</div>
-            <span class="font-extrabold text-2xl text-white">UnQueue</span>
+        <div class="relative z-10 flex items-center gap-3">
+            <div class="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center relative overflow-hidden flex-shrink-0">
+                <div class="absolute top-1.5 left-1.5 w-3 h-3 bg-blue-500 rounded-full mix-blend-multiply opacity-80"></div>
+                <div class="absolute top-1.5 right-1.5 w-3 h-3 bg-rose-500 rounded-full mix-blend-multiply opacity-80"></div>
+                <div class="absolute bottom-1.5 left-1.5 w-3 h-3 bg-amber-500 rounded-full mix-blend-multiply opacity-80"></div>
+                <div class="absolute bottom-1.5 right-1.5 w-3 h-3 bg-emerald-500 rounded-full mix-blend-multiply opacity-80"></div>
+            </div>
+            <span class="font-extrabold text-2xl tracking-tight text-white">UnQueue</span>
         </div>
 
         <div class="relative z-10 text-white max-w-md">
             <h2 class="text-4xl font-extrabold mb-4 leading-tight">Digitalisasi Restoran Anda Hari Ini</h2>
-            <p class="text-orange-100 text-lg font-medium">Bergabung dengan +2,000 restoran lainnya yang telah meningkatkan omzet dan efisiensi bersama UnQueue.</p>
+            <p class="text-indigo-100 text-lg font-medium">Bergabung dengan +2,000 restoran lainnya yang telah meningkatkan omzet dan efisiensi bersama UnQueue.</p>
         </div>
     </div>
 
@@ -41,9 +46,14 @@
     <div class="w-full md:w-1/2 flex flex-col justify-center items-center p-6 sm:p-12 min-h-screen bg-white relative">
         <div class="w-full max-w-md">
             <!-- Mobile Logo -->
-            <div class="md:hidden flex items-center justify-center gap-2 mb-10">
-                <div class="bg-brand text-white w-10 h-10 flex items-center justify-center rounded-xl font-black text-xl shadow-lg shadow-orange-500/30">UQ</div>
-                <span class="font-extrabold text-2xl text-gray-900">UnQueue</span>
+            <div class="md:hidden flex items-center justify-center gap-3 mb-10">
+                <div class="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center relative overflow-hidden flex-shrink-0">
+                    <div class="absolute top-1.5 left-1.5 w-3 h-3 bg-blue-500 rounded-full mix-blend-multiply opacity-80"></div>
+                    <div class="absolute top-1.5 right-1.5 w-3 h-3 bg-rose-500 rounded-full mix-blend-multiply opacity-80"></div>
+                    <div class="absolute bottom-1.5 left-1.5 w-3 h-3 bg-amber-500 rounded-full mix-blend-multiply opacity-80"></div>
+                    <div class="absolute bottom-1.5 right-1.5 w-3 h-3 bg-emerald-500 rounded-full mix-blend-multiply opacity-80"></div>
+                </div>
+                <span class="font-extrabold text-2xl tracking-tight text-gray-900">UnQueue</span>
             </div>
 
             @yield('content')
