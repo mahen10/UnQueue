@@ -55,6 +55,7 @@ class LoginController extends Controller
 
         return match ($shopUser->role) {
             'owner' => redirect()->route('owner.dashboard'),
+            'admin' => redirect()->route('admin.dashboard'),
             'kasir' => redirect()->route('kasir.pos'),
             'kitchen' => redirect()->route('kitchen.display'),
             'waiter' => redirect()->route('waiter.tasks.index'),

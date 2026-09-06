@@ -38,6 +38,7 @@ Route::get('/t/{token}', [\App\Http\Controllers\Customer\MenuController::class, 
 
 // ─── Include route files per role ─────────────────────────────────────────────
 require __DIR__ . '/owner.php';
+require __DIR__ . '/admin.php';
 require __DIR__ . '/kasir.php';
 require __DIR__ . '/kitchen.php';
 require __DIR__ . '/waiter.php';

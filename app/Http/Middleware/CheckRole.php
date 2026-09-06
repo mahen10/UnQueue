@@ -14,7 +14,7 @@ class CheckRole
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
         $user = $request->user();
 
@@ -41,7 +41,7 @@ class CheckRole
             ->where('status', 'active')
             ->first();
 
-        if (!$shopUser || $shopUser->role !== $role) {
+        if (!$shopUser || !in_array($shopUser->role, $roles)) {
             abort(403, 'Akses ditolak. Anda tidak memiliki izin untuk halaman ini.');
         }
 

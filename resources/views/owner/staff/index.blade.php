@@ -36,6 +36,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Posisi / Role</label>
                         <select name="role" required class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm">
+                            <option value="admin">Admin Resto (Manajemen Menu & Meja)</option>
                             <option value="kasir">Kasir (POS & Pembayaran)</option>
                             <option value="kitchen">Dapur (Kitchen Display System)</option>
                             <option value="waiter">Pelayan (Order Taker & Pengantar)</option>
@@ -63,12 +64,13 @@
                             </div>
                             <div>
                                 <p class="font-medium text-gray-900">{{ $staff->user->name }}</p>
-                                <p class="text-xs text-gray-500">{{ $staff->user->phone }} · {{ $staff->user->uq_id }}</p>
+                                <p class="text-xs text-gray-500">{{ $staff->user->phone }} • {{ $staff->user->uq_id }}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
                             <span class="px-2.5 py-1 text-xs font-semibold rounded-full 
                                 {{ match($staff->role) {
+                                    'admin' => 'bg-teal-100 text-teal-800',
                                     'kasir' => 'bg-green-100 text-green-800',
                                     'kitchen' => 'bg-orange-100 text-orange-800',
                                     'waiter' => 'bg-purple-100 text-purple-800',

@@ -62,7 +62,7 @@ class MenuItemController extends Controller
 
         $this->syncModifiers($menuItem, $request->modifiers);
 
-        return redirect()->route('owner.menu-items.index')->with('success', 'Menu berhasil ditambahkan.');
+        return redirect()->route(request()->attributes->get('shopUser')->role . '.menu-items.index')->with('success', 'Menu berhasil ditambahkan.');
     }
 
     public function edit(MenuItem $menuItem)
@@ -103,7 +103,7 @@ class MenuItemController extends Controller
 
         $this->syncModifiers($menuItem, $request->modifiers);
 
-        return redirect()->route('owner.menu-items.index')->with('success', 'Menu berhasil diperbarui.');
+        return redirect()->route(request()->attributes->get('shopUser')->role . '.menu-items.index')->with('success', 'Menu berhasil diperbarui.');
     }
 
     public function destroy(MenuItem $menuItem)
@@ -112,7 +112,7 @@ class MenuItemController extends Controller
             Storage::disk('public')->delete($menuItem->photo);
         }
         $menuItem->delete();
-        return redirect()->route('owner.menu-items.index')->with('success', 'Menu berhasil dihapus.');
+        return redirect()->route(request()->attributes->get('shopUser')->role . '.menu-items.index')->with('success', 'Menu berhasil dihapus.');
     }
 
     public function toggleStock(MenuItem $menuItem)

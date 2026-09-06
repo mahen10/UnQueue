@@ -12,7 +12,7 @@ class MenuCategoryController extends Controller
     {
         $shop = $request->attributes->get('shop');
         $categories = Category::where('shop_id', $shop->id)->orderBy('sort_order')->get();
-        return view('owner.categories.index', compact('categories'));
+        return view(request()->attributes->get('shopUser')->role . '.categories.index', compact('categories'));
     }
 
     public function create()
@@ -42,7 +42,7 @@ class MenuCategoryController extends Controller
             'is_active' => $request->has('is_active'),
         ]);
 
-        return redirect()->route('owner.categories.index')->with('success', 'Kategori berhasil ditambahkan.');
+        return redirect()->route(request()->attributes->get('shopUser')->role . '.categories.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     public function edit(Category $category)
@@ -63,12 +63,12 @@ class MenuCategoryController extends Controller
             'is_active' => $request->has('is_active'),
         ]);
 
-        return redirect()->route('owner.categories.index')->with('success', 'Kategori berhasil diperbarui.');
+        return redirect()->route(request()->attributes->get('shopUser')->role . '.categories.index')->with('success', 'Kategori berhasil diperbarui.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('owner.categories.index')->with('success', 'Kategori berhasil dihapus.');
+        return redirect()->route(request()->attributes->get('shopUser')->role . '.categories.index')->with('success', 'Kategori berhasil dihapus.');
     }
 }

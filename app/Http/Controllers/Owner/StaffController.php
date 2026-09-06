@@ -29,8 +29,19 @@ class StaffController extends Controller
 
         $validated = $request->validate([
             'contact' => 'required|string', // UQ-ID atau Nomor HP
-            'role'    => 'required|in:kasir,kitchen,waiter'
+            'role'    => 'required|in:admin,kasir,kitchen,waiter'
         ]);
+
+        // Jika invite role admin, pastikan belum ada admin lain di toko ini
+        if ($validated['role'] === 'admin') {
+            $adminCount = ShopUser::where('shop_id', $shop->id)
+                ->where('role', 'admin')
+                ->count();
+                
+            if ($adminCount >= 1) {
+                return back()->with('error', 'Restoran Anda hanya boleh memiliki maksimal 1 Admin Resto. Hapus admin lama terlebih dahulu.');
+            }
+        }
 
         // Cari user berdasarkan UQ-ID atau Nomor HP
         $user = User::where('uq_id', $validated['contact'])
@@ -58,8 +69,6 @@ class StaffController extends Controller
             'status'  => 'active',
             'joined_at' => now(),
         ]);
-
-        // Berikan role (sudah ter-cover oleh field 'role' di ShopUser)
 
         return back()->with('success', "Staf {$user->name} berhasil ditambahkan sebagai {$validated['role']}.");
     }

@@ -14,7 +14,7 @@ class TableController extends Controller
     {
         $shop = $request->attributes->get('shop');
         $tables = Table::where('shop_id', $shop->id)->orderBy('number')->get();
-        return view('owner.tables.index', compact('tables', 'shop'));
+        return view(request()->attributes->get('shopUser')->role . '.tables.index', compact('tables', 'shop'));
     }
 
     public function create()
@@ -36,7 +36,7 @@ class TableController extends Controller
             'number' => $request->number,
         ]);
 
-        return redirect()->route('owner.tables.index')->with('success', 'Meja berhasil ditambahkan.');
+        return redirect()->route(request()->attributes->get('shopUser')->role . '.tables.index')->with('success', 'Meja berhasil ditambahkan.');
     }
 
     public function edit(Table $table)
@@ -56,13 +56,13 @@ class TableController extends Controller
             'number' => $request->number,
         ]);
 
-        return redirect()->route('owner.tables.index')->with('success', 'Meja berhasil diperbarui.');
+        return redirect()->route(request()->attributes->get('shopUser')->role . '.tables.index')->with('success', 'Meja berhasil diperbarui.');
     }
 
     public function destroy(Table $table)
     {
         $table->delete();
-        return redirect()->route('owner.tables.index')->with('success', 'Meja berhasil dihapus.');
+        return redirect()->route(request()->attributes->get('shopUser')->role . '.tables.index')->with('success', 'Meja berhasil dihapus.');
     }
 
     public function downloadQr(Table $table)
