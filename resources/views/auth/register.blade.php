@@ -1,0 +1,58 @@
+@extends('layouts.app')
+@section('title', 'Daftar')
+
+@section('content')
+<div class="max-w-md mx-auto mt-16 p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+    <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-gray-900">Daftar Akun Baru</h1>
+        <p class="text-gray-500 text-sm mt-1">Mulai kelola antrean restoran Anda hari ini</p>
+    </div>
+
+    <form method="POST" action="{{ route('register') }}" class="space-y-5">
+        @csrf
+
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+            <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus
+                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2.5 border">
+            @error('name')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="phone" class="block text-sm font-medium text-gray-700">Nomor Handphone</label>
+            <input type="text" name="phone" id="phone" value="{{ old('phone') }}" required
+                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2.5 border"
+                placeholder="Contoh: 08123456789">
+            @error('phone')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input type="password" name="password" id="password" required
+                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2.5 border">
+            @error('password')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        
+        <div>
+            <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Konfirmasi Password</label>
+            <input type="password" name="password_confirmation" id="password_confirmation" required
+                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2.5 border">
+        </div>
+
+        <button type="submit" class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
+            Daftar
+        </button>
+    </form>
+
+    <div class="mt-6 text-center text-sm text-gray-500 border-t border-gray-100 pt-6">
+        Sudah punya akun? 
+        <a href="{{ route('login') }}" class="font-medium text-blue-600 hover:text-blue-500">Masuk di sini</a>
+    </div>
+</div>
+@endsection
