@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.owner')
 @section('title', 'Menu Item')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="py-6 max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-8">
         <div>
             <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Manajemen Menu</h1>

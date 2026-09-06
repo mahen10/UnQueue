@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.owner')
 @section('title', 'Analytics - ' . $shop->name)
 
 @section('content')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#F8FAFC]">
+<div class="py-6 max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-8">
         <div>
             <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Analytics</h1>
@@ -14,7 +14,7 @@
             <span class="text-sm text-gray-500 bg-white border border-gray-200 px-4 py-2 rounded-xl shadow-sm font-medium">
                 {{ \Carbon\Carbon::now()->startOfMonth()->format('d.m.Y') }} - {{ \Carbon\Carbon::now()->format('d.m.Y') }}
             </span>
-            <a href="{{ route('kasir.pos') }}" class="bg-orange-600 text-white px-5 py-2 rounded-xl text-sm font-bold hover:bg-orange-700 transition shadow-md">
+            <a href="{{ route('kasir.pos') }}" class="bg-blue-600 text-white px-5 py-2 rounded-xl text-sm font-bold hover:bg-blue-700 transition shadow-md">
                 Buka Kasir
             </a>
         </div>

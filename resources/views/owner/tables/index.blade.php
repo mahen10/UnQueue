@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.owner')
 @section('title', 'Manajemen Meja')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="py-6 max-w-7xl mx-auto">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <h1 class="text-2xl font-bold text-gray-900">Manajemen Meja</h1>
         <div class="flex gap-2">

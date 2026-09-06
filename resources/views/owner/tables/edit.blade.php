@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.owner')
 @section('title', 'Edit Meja')
 
 @section('content')

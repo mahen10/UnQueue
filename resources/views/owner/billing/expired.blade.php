@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.owner')
 @section('title', 'Langganan Berakhir')
 @section('content')
 <div class="max-w-lg mx-auto px-4 py-16 text-center">
