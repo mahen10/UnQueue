@@ -1,58 +1,56 @@
-@extends('layouts.app')
-@section('title', 'Daftar')
+@extends('layouts.auth')
+@section('title', 'Daftar - UnQueue')
 
 @section('content')
-<div class="max-w-md mx-auto mt-16 p-6 bg-white rounded-xl shadow-sm border border-gray-100">
-    <div class="text-center mb-8">
-        <h1 class="text-2xl font-bold text-gray-900">Daftar Akun Baru</h1>
-        <p class="text-gray-500 text-sm mt-1">Mulai kelola antrean restoran Anda hari ini</p>
-    </div>
-
-    <form method="POST" action="{{ route('register') }}" class="space-y-5">
-        @csrf
-
-        <div>
-            <label for="name" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-            <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus
-                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2.5 border">
-            @error('name')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div>
-            <label for="phone" class="block text-sm font-medium text-gray-700">Nomor Handphone</label>
-            <input type="text" name="phone" id="phone" value="{{ old('phone') }}" required
-                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2.5 border"
-                placeholder="Contoh: 08123456789">
-            @error('phone')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-            <input type="password" name="password" id="password" required
-                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2.5 border">
-            @error('password')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
-        
-        <div>
-            <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Konfirmasi Password</label>
-            <input type="password" name="password_confirmation" id="password_confirmation" required
-                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2.5 border">
-        </div>
-
-        <button type="submit" class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
-            Daftar
-        </button>
-    </form>
-
-    <div class="mt-6 text-center text-sm text-gray-500 border-t border-gray-100 pt-6">
-        Sudah punya akun? 
-        <a href="{{ route('login') }}" class="font-medium text-blue-600 hover:text-blue-500">Masuk di sini</a>
-    </div>
+<div class="text-center mb-8">
+    <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Buat Akun Gratis</h1>
+    <p class="text-gray-500 font-medium">Langkah pertama digitalisasi restoran Anda.</p>
 </div>
+
+@if($errors->any())
+    <div class="bg-red-50 text-red-700 p-4 rounded-xl mb-6 font-medium text-sm border border-red-200">
+        {{ $errors->first() }}
+    </div>
+@endif
+
+<form method="POST" action="{{ route('register') }}" class="space-y-4">
+    @csrf
+    
+    <div>
+        <label class="block text-sm font-bold text-gray-900 mb-2">Nama Lengkap</label>
+        <input type="text" name="name" value="{{ old('name') }}" required autofocus
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-brand focus:ring-1 focus:ring-brand focus:bg-white transition"
+            placeholder="John Doe">
+    </div>
+
+    <div>
+        <label class="block text-sm font-bold text-gray-900 mb-2">Nomor Telepon</label>
+        <input type="text" name="phone" value="{{ old('phone') }}" required
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-brand focus:ring-1 focus:ring-brand focus:bg-white transition"
+            placeholder="0812xxxx">
+    </div>
+
+    <div>
+        <label class="block text-sm font-bold text-gray-900 mb-2">Password</label>
+        <input type="password" name="password" required
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-brand focus:ring-1 focus:ring-brand focus:bg-white transition"
+            placeholder="Minimal 8 karakter">
+    </div>
+
+    <div>
+        <label class="block text-sm font-bold text-gray-900 mb-2">Konfirmasi Password</label>
+        <input type="password" name="password_confirmation" required
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-brand focus:ring-1 focus:ring-brand focus:bg-white transition"
+            placeholder="Ketik ulang password">
+    </div>
+
+    <button type="submit" class="w-full bg-brand hover:bg-orange-600 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5 mt-4">
+        Daftar Sekarang
+    </button>
+</form>
+
+<p class="text-center text-sm text-gray-500 mt-8 font-medium">
+    Sudah punya akun? 
+    <a href="{{ route('login') }}" class="text-brand font-bold hover:underline">Masuk di sini</a>
+</p>
 @endsection
