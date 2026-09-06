@@ -17,19 +17,20 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center gap-6">
-                    <a href="{{ route('landing') }}" class="text-xl font-bold text-blue-600 flex items-center gap-2">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <a href="{{ route('landing') }}" class="text-xl font-bold text-orange-600 flex items-center gap-2 transition hover:scale-105">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         UnQueue
                     </a>
                     @if(Auth::check() && request()->attributes->get('shopUser') && request()->attributes->get('shopUser')->role === 'owner')
-                        <div class="hidden sm:flex space-x-4 ml-6 text-sm font-medium">
-                            <a href="{{ route('owner.dashboard') }}" class="{{ request()->routeIs('owner.dashboard') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Dashboard</a>
-                            <a href="{{ route('owner.reports.index') }}" class="{{ request()->routeIs('owner.reports.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Laporan</a>
-                            <a href="{{ route('owner.categories.index') }}" class="{{ request()->routeIs('owner.categories.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Menu</a>
-                            <a href="{{ route('owner.tables.index') }}" class="{{ request()->routeIs('owner.tables.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Meja</a>
-                            <a href="{{ route('owner.staff.index') }}" class="{{ request()->routeIs('owner.staff.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Karyawan</a>
-                            <a href="{{ route('owner.settings.edit') }}" class="{{ request()->routeIs('owner.settings.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Pengaturan</a>
-                            <a href="{{ route('owner.billing.index') }}" class="{{ request()->routeIs('owner.billing.*') ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900' }}">Billing</a>
+                        <div class="hidden sm:flex space-x-5 ml-8 text-sm font-semibold">
+                            <a href="{{ route('owner.dashboard') }}" class="transition {{ request()->routeIs('owner.dashboard') ? 'text-orange-600 border-b-2 border-orange-600 pb-1' : 'text-gray-500 hover:text-orange-500 hover:border-b-2 hover:border-orange-200 pb-1' }}">Dashboard</a>
+                            <a href="{{ route('owner.reports.index') }}" class="transition {{ request()->routeIs('owner.reports.*') ? 'text-orange-600 border-b-2 border-orange-600 pb-1' : 'text-gray-500 hover:text-orange-500 hover:border-b-2 hover:border-orange-200 pb-1' }}">Laporan</a>
+                            <a href="{{ route('owner.categories.index') }}" class="transition {{ request()->routeIs('owner.categories.*') ? 'text-orange-600 border-b-2 border-orange-600 pb-1' : 'text-gray-500 hover:text-orange-500 hover:border-b-2 hover:border-orange-200 pb-1' }}">Kategori</a>
+                            <a href="{{ route('owner.menu-items.index') }}" class="transition {{ request()->routeIs('owner.menu-items.*') ? 'text-orange-600 border-b-2 border-orange-600 pb-1' : 'text-gray-500 hover:text-orange-500 hover:border-b-2 hover:border-orange-200 pb-1' }}">Menu</a>
+                            <a href="{{ route('owner.tables.index') }}" class="transition {{ request()->routeIs('owner.tables.*') ? 'text-orange-600 border-b-2 border-orange-600 pb-1' : 'text-gray-500 hover:text-orange-500 hover:border-b-2 hover:border-orange-200 pb-1' }}">Meja</a>
+                            <a href="{{ route('owner.staff.index') }}" class="transition {{ request()->routeIs('owner.staff.*') ? 'text-orange-600 border-b-2 border-orange-600 pb-1' : 'text-gray-500 hover:text-orange-500 hover:border-b-2 hover:border-orange-200 pb-1' }}">Karyawan</a>
+                            <a href="{{ route('owner.settings.edit') }}" class="transition {{ request()->routeIs('owner.settings.*') ? 'text-orange-600 border-b-2 border-orange-600 pb-1' : 'text-gray-500 hover:text-orange-500 hover:border-b-2 hover:border-orange-200 pb-1' }}">Pengaturan</a>
+                            <a href="{{ route('owner.billing.index') }}" class="transition {{ request()->routeIs('owner.billing.*') ? 'text-orange-600 border-b-2 border-orange-600 pb-1' : 'text-gray-500 hover:text-orange-500 hover:border-b-2 hover:border-orange-200 pb-1' }}">Billing</a>
                         </div>
                     @endif
                 </div>
