@@ -29,8 +29,10 @@ class GoogleController extends Controller
                     $user->update([
                         'google_id' => $googleUser->id,
                         'google_token' => $googleUser->token,
-                        'email_verified_at' => now(), // otomatis verified
                     ]);
+                    if (!$user->hasVerifiedEmail()) {
+                        $user->markEmailAsVerified();
+                    }
                 }
                 
                 Auth::login($user, true);
@@ -41,10 +43,11 @@ class GoogleController extends Controller
                     'email' => $googleUser->email,
                     'google_id' => $googleUser->id,
                     'google_token' => $googleUser->token,
-                    // Karena OAuth Google, otomatis terverifikasi
-                    'email_verified_at' => now(),
                     // password dan phone boleh kosong
                 ]);
+
+                // Karena OAuth Google, otomatis terverifikasi
+                $newUser->markEmailAsVerified();
 
                 Auth::login($newUser, true);
             }
