@@ -16,7 +16,7 @@ class SuperAdminSeeder extends Seeder
                 'uq_id'    => 'UQ000001',
                 'name'     => 'Super Admin',
                 'phone'    => '08000000000',
-                'email'    => 'admin@unqueue.app',
+                'email' => 'admin@unqueue.app', 'email_verified_at' => now(),
                 'password' => Hash::make('superadmin123'),
                 'is_banned' => false,
                 'is_super_admin' => true,

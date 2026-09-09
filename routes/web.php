@@ -19,12 +19,31 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register']);
+
+    // Google OAuth
+    Route::get('/auth/google', [\App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('/auth/google/callback', [\App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback']);
 });
 
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout')->middleware('auth');
 
+// ─── Email Verification ───────────────────────────────────────────────────────
+Route::middleware('auth')->group(function () {
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->name('verification.notice');
+
+    Route::get('/email/verify/{id}/{hash}', [\App\Http\Controllers\Auth\VerifyEmailController::class, '__invoke'])
+        ->middleware(['signed', 'throttle:6,1'])
+        ->name('verification.verify');
+
+    Route::post('/email/verification-notification', [\App\Http\Controllers\Auth\EmailVerificationNotificationController::class, 'store'])
+        ->middleware('throttle:6,1')
+        ->name('verification.send');
+});
+
 // ─── Free User (sudah login, belum punya shop aktif) ──────────────────────────
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [FreeUserController::class, 'index'])->name('dashboard');
 
     // Buat resto baru

@@ -7,7 +7,7 @@ use App\Http\Controllers\SuperAdmin\UserController;
 
 Route::prefix('superadmin')
     ->name('superadmin.')
-    ->middleware(['auth', 'superadmin'])
+    ->middleware(['auth', 'verified', 'superadmin'])
     ->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

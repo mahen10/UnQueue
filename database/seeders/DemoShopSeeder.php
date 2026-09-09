@@ -24,7 +24,7 @@ class DemoShopSeeder extends Seeder
                 'uq_id'    => 'UQ100001',
                 'name'     => 'Budi Santoso (Demo Owner)',
                 'phone'    => '08111111111',
-                'email'    => 'owner@demo.com',
+                'email' => 'owner@demo.com', 'email_verified_at' => now(),
                 'password' => Hash::make('demo1234'),
             ]
         );
@@ -61,7 +61,7 @@ class DemoShopSeeder extends Seeder
                 'uq_id'    => 'UQ200001',
                 'name'     => 'Sari (Demo Kasir)',
                 'phone'    => '08222222222',
-                'email'    => 'kasir@demo.com',
+                'email' => 'kasir@demo.com', 'email_verified_at' => now(),
                 'password' => Hash::make('demo1234'),
             ]
         );
@@ -76,7 +76,7 @@ class DemoShopSeeder extends Seeder
                 'uq_id'    => 'UQ300001',
                 'name'     => 'Reza (Demo Kitchen)',
                 'phone'    => '08333333333',
-                'email'    => 'kitchen@demo.com',
+                'email' => 'kitchen@demo.com', 'email_verified_at' => now(),
                 'password' => Hash::make('demo1234'),
             ]
         );
@@ -91,7 +91,7 @@ class DemoShopSeeder extends Seeder
                 'uq_id'    => 'UQ400001',
                 'name'     => 'Dina (Demo Waiter)',
                 'phone'    => '08444444444',
-                'email'    => 'waiter@demo.com',
+                'email' => 'waiter@demo.com', 'email_verified_at' => now(),
                 'password' => Hash::make('demo1234'),
             ]
         );

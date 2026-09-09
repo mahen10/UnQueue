@@ -7,7 +7,7 @@ use App\Http\Controllers\Kasir\ShiftController;
 
 Route::prefix('kasir')
     ->name('kasir.')
-    ->middleware(['auth', 'role:kasir', 'subscription'])
+    ->middleware(['auth', 'verified', 'role:kasir', 'subscription'])
     ->group(function () {
         Route::get('/pos', [PosController::class, 'index'])->name('pos');
         Route::post('/pos/order', [PosController::class, 'createOrder'])->name('pos.order');

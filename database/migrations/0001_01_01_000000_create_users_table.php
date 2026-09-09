@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('uq_id', 8)->unique(); // Format: UQ + 6 digits
             $table->string('name');
-            $table->string('phone', 20)->unique();
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('phone', 20)->unique()->nullable();
+            $table->string('password')->nullable(); // Nullable for Google users
+            $table->string('google_id')->unique()->nullable();
+            $table->string('google_token')->nullable();
             $table->boolean('is_banned')->default(false);
             $table->rememberToken();
             $table->timestamps();

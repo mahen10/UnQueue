@@ -15,10 +15,22 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'phone' => 'required|string',
+        $request->validate([
+            'login' => 'required|string',
             'password' => 'required|string',
         ]);
+
+        $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+
+        // Deteksi apakah ini format UQ-ID (misal UQ123456)
+        if (preg_match('/^UQ[0-9]{6}$/i', $request->login)) {
+            $loginType = 'uq_id';
+        }
+
+        $credentials = [
+            $loginType => $request->login,
+            'password' => $request->password
+        ];
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
@@ -27,8 +39,8 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'phone' => 'No. HP atau password salah.',
-        ])->onlyInput('phone');
+            'login' => 'Email / No. HP / UQ-ID atau password salah.',
+        ])->onlyInput('login');
     }
 
     protected function redirectBasedOnRole($user)

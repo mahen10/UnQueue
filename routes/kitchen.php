@@ -5,7 +5,7 @@ use App\Http\Controllers\Kitchen\KdsController;
 
 Route::prefix('kitchen')
     ->name('kitchen.')
-    ->middleware(['auth', 'role:kitchen', 'subscription'])
+    ->middleware(['auth', 'verified', 'role:kitchen', 'subscription'])
     ->group(function () {
         Route::get('/display', [KdsController::class, 'index'])->name('display');
         Route::patch('/orders/{order}/process', [KdsController::class, 'markProcessing'])->name('orders.process');

@@ -10,7 +10,7 @@ use App\Http\Controllers\Owner\BillingController;
 // Group 1: Owner Only
 Route::prefix('owner')
     ->name('owner.')
-    ->middleware(['auth', 'role:owner', 'subscription'])
+    ->middleware(['auth', 'verified', 'role:owner', 'subscription'])
     ->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -35,7 +35,7 @@ Route::prefix('owner')
 // Billing tetap bisa diakses walau langganan expired (tanpa middleware subscription)
 Route::prefix('owner')
     ->name('owner.')
-    ->middleware(['auth', 'role:owner'])
+    ->middleware(['auth', 'verified', 'role:owner'])
     ->group(function () {
         Route::get('billing/expired', [BillingController::class, 'expired'])->name('billing.expired');
     });

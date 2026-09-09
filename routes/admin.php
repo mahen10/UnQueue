@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\TableController;
 
-Route::middleware(['auth', 'role:admin', 'subscription'])
+Route::middleware(['auth', 'verified', 'role:admin', 'subscription'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
