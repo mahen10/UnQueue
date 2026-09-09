@@ -10,8 +10,28 @@ class FreeUserController extends Controller
     {
         $user = $request->user();
         
-        if ($user->activeShop()) {
-            return redirect()->route('login'); // Biarkan login controller yang urus redirect ke dashboard yang benar
+        if ($user->isSuperAdmin()) {
+            return redirect()->route('superadmin.dashboard');
+        }
+
+        $activeShop = $user->activeShop();
+
+        if ($activeShop) {
+            $shopUser = \App\Models\ShopUser::where('shop_id', $activeShop->id)
+                ->where('user_id', $user->id)
+                ->where('status', 'active')
+                ->first();
+
+            if ($shopUser) {
+                return match ($shopUser->role) {
+                    'owner' => redirect()->route('owner.dashboard'),
+                    'admin' => redirect()->route('admin.dashboard'),
+                    'kasir' => redirect()->route('kasir.pos'),
+                    'kitchen' => redirect()->route('kitchen.display'),
+                    'waiter' => redirect()->route('waiter.tasks.index'),
+                    default => view('free_user.dashboard'),
+                };
+            }
         }
 
         return view('free_user.dashboard');
