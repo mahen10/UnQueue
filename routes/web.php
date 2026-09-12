@@ -29,7 +29,10 @@ Route::post('/logout', [LogoutController::class, 'logout'])->name('logout')->mid
 
 // ─── Email Verification ───────────────────────────────────────────────────────
 Route::middleware('auth')->group(function () {
-    Route::get('/email/verify', function () {
+    Route::get('/email/verify', function (Illuminate\Http\Request $request) {
+        if ($request->user()->hasVerifiedEmail()) {
+            return redirect()->route('dashboard');
+        }
         return view('auth.verify-email');
     })->name('verification.notice');
 
