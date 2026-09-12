@@ -1,70 +1,55 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Tugas Pelayan — {{ $shop->name }}</title>
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-</head>
-<body class="bg-gray-100 min-h-screen">
+@extends('layouts.staff', ['noPadding' => true])
+@section('title', 'Tugas Pelayan - ' . $shop->name)
+@section('header_title', 'Tugas Pelayan')
 
-<div class="max-w-lg mx-auto">
-    {{-- Header --}}
-    <div class="bg-white border-b border-gray-200 px-4 py-3 flex justify-between items-center sticky top-0 z-10">
-        <div class="flex items-center gap-2">
-            <span class="text-xl">🛎️</span>
-            <div>
-                <h1 class="font-bold text-gray-900 text-sm">Tugas Pelayan</h1>
-                <p class="text-xs text-gray-400">{{ $shop->name }}</p>
-            </div>
-        </div>
-        <div class="flex items-center gap-3">
-            @if($readyOrders->count() > 0)
-            <span class="bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-full animate-pulse">
-                {{ $readyOrders->count() }} siap!
-            </span>
-            @endif
-            <form action="{{ route('logout') }}" method="POST" class="inline">
-                @csrf
-                <button class="text-xs text-gray-400">Logout</button>
-            </form>
-        </div>
+@section('header_actions')
+    @if($readyOrders->count() > 0)
+    <div class="flex items-center gap-2 px-3 py-1.5 bg-rose-50 border border-rose-200 rounded-lg shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse block"></span>
+        <span class="text-xs font-bold text-rose-700 tracking-wide uppercase">{{ $readyOrders->count() }} Siap</span>
     </div>
+    @endif
+@endsection
 
-    <div class="px-4 py-4">
+@section('content')
+<div class="max-w-lg mx-auto w-full">
+    <div class="px-4 py-6">
 
         {{-- Pesanan Siap Diantar --}}
         @if($readyOrders->isNotEmpty())
-        <div class="mb-6">
-            <h2 class="text-base font-bold text-gray-900 mb-3 flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-green-500 animate-pulse inline-block"></span>
+        <div class="mb-8">
+            <h2 class="text-sm font-bold text-slate-500 mb-3 flex items-center gap-2 uppercase tracking-wider">
+                <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 Siap Diantar ({{ $readyOrders->count() }})
             </h2>
 
-            <div class="space-y-3">
+            <div class="space-y-4">
                 @foreach($readyOrders as $order)
-                <div class="bg-white rounded-xl border-2 border-green-500 shadow-sm overflow-hidden"
+                <div class="bg-white rounded-2xl border-2 border-emerald-500 shadow-md shadow-emerald-900/5 overflow-hidden"
                      id="order-{{ $order->id }}">
-                    <div class="bg-green-50 px-4 py-2 flex justify-between items-center">
+                    <div class="bg-emerald-50 px-5 py-3 flex justify-between items-center border-b border-emerald-100/50">
                         <div>
-                            <p class="font-bold text-gray-900 text-sm">#{{ $order->order_number }}</p>
-                            <p class="text-xs text-gray-500">{{ $order->table->name }}</p>
+                            <p class="font-black text-slate-900 text-lg">#{{ $order->order_number }}</p>
+                            <p class="text-xs font-bold text-emerald-700 uppercase tracking-wide mt-0.5">Meja: {{ $order->table->name }}</p>
                         </div>
-                        <p class="text-xs text-gray-400">{{ $order->created_at->format('H:i') }}</p>
+                        <div class="text-right flex flex-col items-end">
+                            <span class="bg-emerald-200/50 text-emerald-700 text-[10px] px-2 py-0.5 rounded font-black uppercase tracking-wide">WAITING</span>
+                            <p class="text-[11px] font-bold text-emerald-600 mt-1">{{ $order->created_at->format('H:i') }}</p>
+                        </div>
                     </div>
-                    <div class="px-4 py-3">
-                        <div class="space-y-1.5 mb-3">
+                    <div class="px-5 py-4">
+                        <div class="space-y-2 mb-4 bg-slate-50 rounded-xl p-3 border border-slate-100">
                             @foreach($order->items as $item)
-                            <div class="text-sm text-gray-700">
-                                <span class="font-bold text-green-600">{{ $item->quantity }}×</span>
-                                {{ $item->item_name }}
+                            <div class="text-sm text-slate-700 flex items-start gap-2">
+                                <span class="font-black text-emerald-600 w-5 flex-shrink-0">{{ $item->quantity }}x</span>
+                                <span class="font-medium leading-tight">{{ $item->item_name }}</span>
                             </div>
                             @endforeach
                         </div>
                         <button onclick="markDelivered({{ $order->id }}, this)"
-                            class="w-full bg-green-600 text-white font-bold py-2.5 rounded-lg text-sm hover:bg-green-700 active:scale-95 transition">
-                            ✅ Sudah Diantar ke {{ $order->table->name }}
+                            class="w-full bg-emerald-500 text-white font-black py-3 rounded-xl text-sm hover:bg-emerald-600 transition-colors shadow-sm active:scale-[0.98] flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            TANDAI SUDAH DIANTAR
                         </button>
                     </div>
                 </div>
@@ -72,49 +57,67 @@
             </div>
         </div>
         @else
-        <div class="bg-white rounded-xl border border-gray-100 p-10 text-center mb-6">
-            <p class="text-3xl mb-2">😴</p>
-            <p class="font-medium text-gray-700">Tidak ada pesanan siap</p>
-            <p class="text-xs text-gray-400 mt-1">Halaman ini refresh otomatis tiap 10 detik</p>
+        <div class="bg-white rounded-2xl border border-slate-200/60 p-12 text-center mb-8 shadow-sm flex flex-col items-center justify-center">
+            <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4">
+                <svg class="w-10 h-10 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p class="font-bold text-slate-700 text-lg">Tidak ada pesanan siap</p>
+            <p class="text-xs text-slate-400 mt-1 font-medium">Santai dulu, halaman ini otomatis refresh (10s)</p>
         </div>
         @endif
 
         {{-- Terakhir Diantar Hari Ini --}}
         @if($recentDelivered->isNotEmpty())
         <div>
-            <h2 class="text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">Sudah Diantar Hari Ini</h2>
-            <div class="space-y-2">
-                @foreach($recentDelivered as $order)
-                <div class="bg-white rounded-lg px-4 py-2.5 flex justify-between items-center opacity-60">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">#{{ $order->order_number }}</p>
-                        <p class="text-xs text-gray-400">{{ $order->table->name }}</p>
+            <h2 class="text-xs font-bold text-slate-400 mb-3 flex items-center gap-2 uppercase tracking-wider">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Riwayat Antar Terakhir
+            </h2>
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
+                <div class="divide-y divide-slate-100">
+                    @foreach($recentDelivered as $order)
+                    <div class="px-5 py-3.5 flex justify-between items-center opacity-70 hover:opacity-100 transition-opacity">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <p class="text-sm font-bold text-slate-900">#{{ $order->order_number }}</p>
+                                <span class="bg-slate-100 text-slate-500 text-[10px] px-1.5 py-0.5 rounded font-bold uppercase">{{ $order->table->name }}</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 font-bold uppercase tracking-wider border border-emerald-100 flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Selesai
+                        </span>
                     </div>
-                    <span class="text-xs text-green-600 font-medium">✓ Diantar</span>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
         </div>
         @endif
     </div>
 </div>
+@endsection
 
+@push('scripts')
 <script>
 const csrf = document.querySelector('meta[name="csrf-token"]').content;
 
 async function markDelivered(orderId, btn) {
+    const originalText = btn.innerHTML;
     btn.disabled = true;
-    btn.textContent = 'Mengkonfirmasi...';
+    btn.innerHTML = '<svg class="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> <span class="ml-2">Memproses...</span>';
 
-    await fetch(`/waiter/orders/${orderId}/delivered`, {
-        method: 'PATCH',
-        headers: { 'X-CSRF-TOKEN': csrf, 'Content-Type': 'application/json' }
-    });
-
-    location.reload();
+    try {
+        await fetch(`/waiter/orders/${orderId}/delivered`, {
+            method: 'PATCH',
+            headers: { 'X-CSRF-TOKEN': csrf, 'Content-Type': 'application/json' }
+        });
+        location.reload();
+    } catch(e) {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
 }
 
 setTimeout(() => location.reload(), 10000);
 </script>
-</body>
-</html>
+@endpush
