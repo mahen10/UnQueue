@@ -28,7 +28,7 @@ class CheckRole
             return redirect()->route('login')->with('error', 'Akun Anda telah ditangguhkan.');
         }
 
-        $activeShop = clone $user->activeShop(); // This returns the shop model
+        $activeShop = $user->activeShop(); // This returns the shop model
 
         if (!$activeShop) {
             // User belum punya shop
