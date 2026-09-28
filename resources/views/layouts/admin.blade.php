@@ -27,14 +27,7 @@
         <!-- Logo -->
         <div class="h-20 flex items-center px-8">
             <a href="{{ route('admin.dashboard') }}" class="text-xl font-bold text-gray-900 flex items-center gap-3 tracking-tight">
-                <div class="relative w-6 h-6">
-                    <!-- Colorful abstract logo similar to reference -->
-                    <div class="absolute top-0 left-0 w-2.5 h-2.5 rounded-full bg-blue-500"></div>
-                    <div class="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-purple-500"></div>
-                    <div class="absolute bottom-0 left-0 w-2.5 h-2.5 rounded-full bg-orange-500"></div>
-                    <div class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-pink-500"></div>
-                </div>
-                UnQueue
+                <img src="{{ asset('assets/images/logo.png') }}" alt="UnQueue" class="h-6 w-auto">
             </a>
         </div>
 

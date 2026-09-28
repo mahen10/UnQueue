@@ -27,13 +27,7 @@
         </div>
         
         <div class="relative z-10 flex items-center gap-3">
-            <div class="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center relative overflow-hidden flex-shrink-0">
-                <div class="absolute top-1.5 left-1.5 w-3 h-3 bg-blue-500 rounded-full mix-blend-multiply opacity-80"></div>
-                <div class="absolute top-1.5 right-1.5 w-3 h-3 bg-rose-500 rounded-full mix-blend-multiply opacity-80"></div>
-                <div class="absolute bottom-1.5 left-1.5 w-3 h-3 bg-amber-500 rounded-full mix-blend-multiply opacity-80"></div>
-                <div class="absolute bottom-1.5 right-1.5 w-3 h-3 bg-emerald-500 rounded-full mix-blend-multiply opacity-80"></div>
-            </div>
-            <span class="font-extrabold text-2xl tracking-tight text-white">UnQueue</span>
+            <img src="{{ asset('assets/images/logo.png') }}" alt="UnQueue" class="h-8 w-auto filter brightness-0 invert">
         </div>
 
         <div class="relative z-10 text-white max-w-md">
@@ -47,13 +41,7 @@
         <div class="w-full max-w-md">
             <!-- Mobile Logo -->
             <div class="md:hidden flex items-center justify-center gap-3 mb-10">
-                <div class="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center relative overflow-hidden flex-shrink-0">
-                    <div class="absolute top-1.5 left-1.5 w-3 h-3 bg-blue-500 rounded-full mix-blend-multiply opacity-80"></div>
-                    <div class="absolute top-1.5 right-1.5 w-3 h-3 bg-rose-500 rounded-full mix-blend-multiply opacity-80"></div>
-                    <div class="absolute bottom-1.5 left-1.5 w-3 h-3 bg-amber-500 rounded-full mix-blend-multiply opacity-80"></div>
-                    <div class="absolute bottom-1.5 right-1.5 w-3 h-3 bg-emerald-500 rounded-full mix-blend-multiply opacity-80"></div>
-                </div>
-                <span class="font-extrabold text-2xl tracking-tight text-gray-900">UnQueue</span>
+                <img src="{{ asset('assets/images/logo.png') }}" alt="UnQueue" class="h-8 w-auto">
             </div>
 
             @yield('content')
