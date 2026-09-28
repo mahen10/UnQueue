@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MenuItem;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Table;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -76,12 +78,22 @@ class DashboardController extends Controller
             $chartOrders[] = (clone $dayData)->count();
         }
 
+        // Meja Aktif (sedang ada pesanan active)
+        $activeTables = Table::where('shop_id', $shop->id)
+            ->whereHas('orders', function ($q) {
+                $q->whereIn('status', ['processing', 'ready']);
+            })->count();
+
+        // Total Menu Items
+        $totalMenuItems = MenuItem::where('shop_id', $shop->id)->count();
+
         return view('admin.dashboard', compact(
             'shop', 
             'todayRevenue', 'todayOrdersCount', 
             'monthlyRevenue', 'monthlyOrdersCount',
             'topItems', 'recentOrders',
-            'chartDates', 'chartRevenue', 'chartOrders'
+            'chartDates', 'chartRevenue', 'chartOrders',
+            'activeTables', 'totalMenuItems'
         ));
     }
 }
