@@ -61,7 +61,15 @@
 <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/85 backdrop-blur-xl border-b border-surface-container-high/60 shadow-[0_1px_12px_rgba(0,0,0,0.04)]">
     <div class="h-20 max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between gap-6">
         <div class="flex items-center gap-3 shrink-0">
-            <span class="font-headline-sm text-headline-sm tracking-tight text-primary font-bold hidden sm:inline-block text-2xl">⚡ UNQUEUE</span>
+            <div class="w-10 h-10 bg-white rounded-[12px] shadow-sm border border-gray-100 flex items-center justify-center shrink-0">
+                <div class="grid grid-cols-2 gap-1">
+                    <div class="w-2.5 h-2.5 bg-[#3B82F6] rounded-full"></div>
+                    <div class="w-2.5 h-2.5 bg-[#F43F5E] rounded-full"></div>
+                    <div class="w-2.5 h-2.5 bg-[#F59E0B] rounded-full"></div>
+                    <div class="w-2.5 h-2.5 bg-[#10B981] rounded-full"></div>
+                </div>
+            </div>
+            <span class="font-extrabold text-2xl tracking-tight text-primary hidden sm:inline-block">UnQueue</span>
         </div>
         <nav class="hidden lg:flex items-center gap-1 xl:gap-2 px-3 py-1.5 rounded-full bg-surface-container-low/70">
             <a class="px-4 py-2 rounded-full transition-colors bg-primary-container text-on-primary font-title-md" href="#">Fitur Utama</a>
@@ -620,7 +628,15 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
             <div class="lg:col-span-2 space-y-4">
                 <div class="flex items-center gap-3">
-                    <span class="font-headline-sm text-headline-sm tracking-tight text-primary font-bold text-2xl">⚡ UNQUEUE</span>
+                    <div class="w-10 h-10 bg-white rounded-[12px] shadow-sm border border-gray-100 flex items-center justify-center shrink-0">
+                        <div class="grid grid-cols-2 gap-1">
+                            <div class="w-2.5 h-2.5 bg-[#3B82F6] rounded-full"></div>
+                            <div class="w-2.5 h-2.5 bg-[#F43F5E] rounded-full"></div>
+                            <div class="w-2.5 h-2.5 bg-[#F59E0B] rounded-full"></div>
+                            <div class="w-2.5 h-2.5 bg-[#10B981] rounded-full"></div>
+                        </div>
+                    </div>
+                    <span class="font-extrabold text-2xl tracking-tight text-primary">UnQueue</span>
                 </div>
                 <p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Sistem pemesanan restoran digital pintar dan otomatisasi rotasi meja. Menghadirkan ritme layanan tanpa antrean dan pengalaman kuliner berkelas.</p>
                 <div class="pt-2">

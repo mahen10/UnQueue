@@ -27,7 +27,15 @@
         <!-- Logo -->
         <div class="h-20 flex items-center px-8">
             <a href="{{ route('owner.dashboard') }}" class="text-xl font-bold text-gray-900 flex items-center gap-3 tracking-tight">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="UnQueue" class="h-6 w-auto">
+                <div class="w-8 h-8 bg-white rounded-[10px] shadow-sm border border-gray-200 flex items-center justify-center shrink-0">
+                    <div class="grid grid-cols-2 gap-[3px]">
+                        <div class="w-2 h-2 bg-[#3B82F6] rounded-full"></div>
+                        <div class="w-2 h-2 bg-[#F43F5E] rounded-full"></div>
+                        <div class="w-2 h-2 bg-[#F59E0B] rounded-full"></div>
+                        <div class="w-2 h-2 bg-[#10B981] rounded-full"></div>
+                    </div>
+                </div>
+                UnQueue
             </a>
         </div>
 

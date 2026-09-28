@@ -16,7 +16,17 @@
     <!-- Sidebar -->
     <aside class="w-64 bg-slate-900 text-white flex-shrink-0 hidden md:flex flex-col shadow-2xl z-20">
         <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900/50">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="UnQueue" class="h-6 w-auto">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-white rounded-[10px] flex items-center justify-center shrink-0 shadow-sm">
+                    <div class="grid grid-cols-2 gap-[3px]">
+                        <div class="w-2 h-2 bg-[#3B82F6] rounded-full"></div>
+                        <div class="w-2 h-2 bg-[#F43F5E] rounded-full"></div>
+                        <div class="w-2 h-2 bg-[#F59E0B] rounded-full"></div>
+                        <div class="w-2 h-2 bg-[#10B981] rounded-full"></div>
+                    </div>
+                </div>
+                <span class="text-xl font-bold tracking-tight">UnQueue <span class="text-indigo-500 text-sm ml-1 bg-indigo-500/10 px-2 py-0.5 rounded">CORE</span></span>
+            </div>
         </div>
         
         <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1">

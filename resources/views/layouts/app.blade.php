@@ -17,8 +17,16 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center gap-6">
-                    <a href="{{ route('landing') }}" class="text-xl font-bold text-orange-600 flex items-center gap-2 transition hover:scale-105">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="UnQueue" class="h-6 w-auto">
+                    <a href="{{ route('landing') }}" class="text-xl font-bold text-gray-900 flex items-center gap-3 transition hover:scale-105">
+                        <div class="w-8 h-8 bg-white rounded-[10px] shadow-sm border border-gray-200 flex items-center justify-center shrink-0">
+                            <div class="grid grid-cols-2 gap-[3px]">
+                                <div class="w-2 h-2 bg-[#3B82F6] rounded-full"></div>
+                                <div class="w-2 h-2 bg-[#F43F5E] rounded-full"></div>
+                                <div class="w-2 h-2 bg-[#F59E0B] rounded-full"></div>
+                                <div class="w-2 h-2 bg-[#10B981] rounded-full"></div>
+                            </div>
+                        </div>
+                        UnQueue
                     </a>
                     @if(Auth::check() && request()->attributes->get('shopUser') && request()->attributes->get('shopUser')->role === 'owner')
                         <div class="hidden sm:flex space-x-5 ml-8 text-sm font-semibold">

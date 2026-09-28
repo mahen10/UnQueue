@@ -25,7 +25,14 @@
     <header class="h-16 flex items-center justify-between px-4 sm:px-6 shrink-0 shadow-sm sticky top-0 z-50 border-b transition-colors duration-200 {{ isset($darkMode) && $darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200' }}">
         <div class="flex items-center gap-4">
             <div class="flex items-center justify-center shrink-0">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="UnQueue" class="h-8 w-auto">
+                <div class="w-10 h-10 bg-white rounded-[12px] shadow-sm border border-gray-100 flex items-center justify-center shrink-0">
+                    <div class="grid grid-cols-2 gap-1">
+                        <div class="w-2.5 h-2.5 bg-[#3B82F6] rounded-full"></div>
+                        <div class="w-2.5 h-2.5 bg-[#F43F5E] rounded-full"></div>
+                        <div class="w-2.5 h-2.5 bg-[#F59E0B] rounded-full"></div>
+                        <div class="w-2.5 h-2.5 bg-[#10B981] rounded-full"></div>
+                    </div>
+                </div>
             </div>
             <div>
                 <h1 class="font-bold text-lg leading-tight {{ isset($darkMode) && $darkMode ? 'text-white' : 'text-slate-900' }}">@yield('header_title', 'Operasional')</h1>

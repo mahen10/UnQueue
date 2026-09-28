@@ -27,7 +27,15 @@
         </div>
         
         <div class="relative z-10 flex items-center gap-3">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="UnQueue" class="h-8 w-auto filter brightness-0 invert">
+            <div class="w-10 h-10 bg-white rounded-[12px] shadow-sm flex items-center justify-center shrink-0">
+                <div class="grid grid-cols-2 gap-1">
+                    <div class="w-2.5 h-2.5 bg-[#3B82F6] rounded-full"></div>
+                    <div class="w-2.5 h-2.5 bg-[#F43F5E] rounded-full"></div>
+                    <div class="w-2.5 h-2.5 bg-[#F59E0B] rounded-full"></div>
+                    <div class="w-2.5 h-2.5 bg-[#10B981] rounded-full"></div>
+                </div>
+            </div>
+            <span class="font-extrabold text-2xl tracking-tight text-white">UnQueue</span>
         </div>
 
         <div class="relative z-10 text-white max-w-md">
@@ -41,7 +49,15 @@
         <div class="w-full max-w-md">
             <!-- Mobile Logo -->
             <div class="md:hidden flex items-center justify-center gap-3 mb-10">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="UnQueue" class="h-8 w-auto">
+                <div class="w-10 h-10 bg-white rounded-[12px] shadow-sm border border-gray-100 flex items-center justify-center shrink-0">
+                    <div class="grid grid-cols-2 gap-1">
+                        <div class="w-2.5 h-2.5 bg-[#3B82F6] rounded-full"></div>
+                        <div class="w-2.5 h-2.5 bg-[#F43F5E] rounded-full"></div>
+                        <div class="w-2.5 h-2.5 bg-[#F59E0B] rounded-full"></div>
+                        <div class="w-2.5 h-2.5 bg-[#10B981] rounded-full"></div>
+                    </div>
+                </div>
+                <span class="font-extrabold text-2xl tracking-tight text-gray-900">UnQueue</span>
             </div>
 
             @yield('content')
