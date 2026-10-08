@@ -202,8 +202,8 @@ function itemModal() {
         
         get totalPrice() {
             if (!this.item) return 0;
-            let modTotal = Object.values(this.selectedModifiers).reduce((sum, m) => sum + parseFloat(m.option_price || 0), 0);
-            return (this.item.price + modTotal) * this.qty;
+            let modTotal = Object.values(this.selectedModifiers).reduce((sum, m) => sum + Math.round(Number(m.option_price || 0)), 0);
+            return (Math.round(Number(this.item.price)) + modTotal) * this.qty;
         },
         
         init() {
